@@ -1,6 +1,6 @@
 ﻿namespace ShopAPI.Models
 {
-    public class Customers
+    public class Customer
     {
         public int Id { get; set; }
         public string? FIO { get; set; }

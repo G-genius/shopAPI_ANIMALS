@@ -1,8 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using ShopAPI.Models;
+using ShopAPI.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<ShopContext>(opt =>
+    opt.UseInMemoryDatabase("ShopList"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
