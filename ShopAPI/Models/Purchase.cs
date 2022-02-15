@@ -7,5 +7,8 @@
         public int IdStorage { get; set; }
         public int Count { get; set; }
         public int Amount { get; set; }
+
+        public Product Product { get; set; }
+        public Storage Storage { get; set; }
     }
 }

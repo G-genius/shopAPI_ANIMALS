@@ -23,10 +23,35 @@ namespace ShopAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Post>()
+                .HasOne(b => b.Worker)
+                .WithOne(i => i.Post)
+                .HasForeignKey<Worker>(b => b.IdPost);
+
+            modelBuilder.Entity<Customer>()
+                .HasOne(c => c.Order)
+                .WithOne(d => d.Customer)
+                .HasForeignKey<Order>(d => d.IdCustomer);
+
+            modelBuilder.Entity<Storage>()
+                .HasOne(e => e.Purchase)
+                .WithOne(f => f.Storage)
+                .HasForeignKey<Purchase>(e => e.IdStorage);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(h => h.Purchase)
+                .WithOne(j => j.Product)
+                .HasForeignKey<Purchase>(h => h.IdProduct);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(h => h.Order)
+                .WithOne(j => j.Product)
+                .HasForeignKey<Order>(h => h.IdProduct);
+
             modelBuilder.Entity<Worker>()
-                .HasOne(b => b.Post)
-                .WithOne(i => i.Worker)
-                .HasForeignKey<Post>(b => b.Id);
+                .HasOne(l => l.Order)
+                .WithOne(m => m.Worker)
+                .HasForeignKey<Order>(l => l.IdWorker);
         }
     }
     
