@@ -3,15 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopAPI.Data;
 using ShopAPI.Models;
 
 namespace ShopAPI.Controllers
 {
-    public class StoragesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StoragesController : ControllerBase
     {
         private readonly ShopContext _context;
 
@@ -20,130 +22,83 @@ namespace ShopAPI.Controllers
             _context = context;
         }
 
-        // GET: Storages
-        public async Task<IActionResult> Index()
+        // GET: api/Storages
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Storage>>> GetStorages()
         {
-            return View(await _context.Storages.ToListAsync());
+            return await _context.Storages.ToListAsync();
         }
 
-        // GET: Storages/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: api/Storages/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Storage>> GetStorage(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var storage = await _context.Storages
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (storage == null)
-            {
-                return NotFound();
-            }
-
-            return View(storage);
-        }
-
-        // GET: Storages/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Storages/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address")] Storage storage)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(storage);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(storage);
-        }
-
-        // GET: Storages/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var storage = await _context.Storages.FindAsync(id);
+
             if (storage == null)
             {
                 return NotFound();
             }
-            return View(storage);
+
+            return storage;
         }
 
-        // POST: Storages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] Storage storage)
+        // PUT: api/Storages/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutStorage(int id, Storage storage)
         {
             if (id != storage.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            _context.Entry(storage).State = EntityState.Modified;
+
+            try
             {
-                try
-                {
-                    _context.Update(storage);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StorageExists(storage.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            return View(storage);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!StorageExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // GET: Storages/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: api/Storages
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Storage>> PostStorage(Storage storage)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            _context.Storages.Add(storage);
+            await _context.SaveChangesAsync();
 
-            var storage = await _context.Storages
-                .FirstOrDefaultAsync(m => m.Id == id);
+            return CreatedAtAction("GetStorage", new { id = storage.Id }, storage);
+        }
+
+        // DELETE: api/Storages/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStorage(int id)
+        {
+            var storage = await _context.Storages.FindAsync(id);
             if (storage == null)
             {
                 return NotFound();
             }
 
-            return View(storage);
-        }
-
-        // POST: Storages/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var storage = await _context.Storages.FindAsync(id);
             _context.Storages.Remove(storage);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return NoContent();
         }
 
         private bool StorageExists(int id)

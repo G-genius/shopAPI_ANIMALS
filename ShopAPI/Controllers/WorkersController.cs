@@ -3,15 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopAPI.Data;
 using ShopAPI.Models;
 
 namespace ShopAPI.Controllers
 {
-    public class WorkersController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class WorkersController : ControllerBase
     {
         private readonly ShopContext _context;
 
@@ -20,137 +22,83 @@ namespace ShopAPI.Controllers
             _context = context;
         }
 
-        // GET: Workers
-        public async Task<IActionResult> Index()
+        // GET: api/Workers
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Worker>>> GetWorkers()
         {
-            var shopContext = _context.Workers.Include(w => w.Post);
-            return View(await shopContext.ToListAsync());
+            return await _context.Workers.ToListAsync();
         }
 
-        // GET: Workers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: api/Workers/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Worker>> GetWorker(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var worker = await _context.Workers
-                .Include(w => w.Post)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (worker == null)
-            {
-                return NotFound();
-            }
-
-            return View(worker);
-        }
-
-        // GET: Workers/Create
-        public IActionResult Create()
-        {
-            ViewData["IdPost"] = new SelectList(_context.Posts, "Id", "Id");
-            return View();
-        }
-
-        // POST: Workers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FIO,IdPost")] Worker worker)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(worker);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdPost"] = new SelectList(_context.Posts, "Id", "Id", worker.IdPost);
-            return View(worker);
-        }
-
-        // GET: Workers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var worker = await _context.Workers.FindAsync(id);
+
             if (worker == null)
             {
                 return NotFound();
             }
-            ViewData["IdPost"] = new SelectList(_context.Posts, "Id", "Id", worker.IdPost);
-            return View(worker);
+
+            return worker;
         }
 
-        // POST: Workers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FIO,IdPost")] Worker worker)
+        // PUT: api/Workers/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutWorker(int id, Worker worker)
         {
             if (id != worker.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            _context.Entry(worker).State = EntityState.Modified;
+
+            try
             {
-                try
-                {
-                    _context.Update(worker);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WorkerExists(worker.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            ViewData["IdPost"] = new SelectList(_context.Posts, "Id", "Id", worker.IdPost);
-            return View(worker);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!WorkerExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // GET: Workers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: api/Workers
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Worker>> PostWorker(Worker worker)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            _context.Workers.Add(worker);
+            await _context.SaveChangesAsync();
 
-            var worker = await _context.Workers
-                .Include(w => w.Post)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            return CreatedAtAction("GetWorker", new { id = worker.Id }, worker);
+        }
+
+        // DELETE: api/Workers/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteWorker(int id)
+        {
+            var worker = await _context.Workers.FindAsync(id);
             if (worker == null)
             {
                 return NotFound();
             }
 
-            return View(worker);
-        }
-
-        // POST: Workers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var worker = await _context.Workers.FindAsync(id);
             _context.Workers.Remove(worker);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return NoContent();
         }
 
         private bool WorkerExists(int id)

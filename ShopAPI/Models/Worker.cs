@@ -7,8 +7,8 @@
         public int IdPost { get; set; }
 
        // public int PostForeignKey { get; set; }
-        public Post Post { get; set; }
+        public Post? Post { get; set; }
 
-        public Order Order { get; set; }
+        public Order? Order { get; set; }
     }
 }

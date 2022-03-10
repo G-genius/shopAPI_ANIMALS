@@ -8,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<ShopContext>(opt =>
-    opt.UseInMemoryDatabase("ShopList"));
+builder.Services.AddDbContext<ShopContext>(opt => {
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConection"));
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
