@@ -8,5 +8,7 @@
 
        // public int PostForeignKey { get; set; }
         public Post? Post { get; set; }
+
+        public List<Order>? Orders { get; set; }
     }
 }

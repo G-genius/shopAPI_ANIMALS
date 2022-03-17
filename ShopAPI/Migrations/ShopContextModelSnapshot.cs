@@ -66,14 +66,11 @@ namespace ShopAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCustomer")
-                        .IsUnique();
+                    b.HasIndex("IdCustomer");
 
-                    b.HasIndex("IdProduct")
-                        .IsUnique();
+                    b.HasIndex("IdProduct");
 
-                    b.HasIndex("IdWorker")
-                        .IsUnique();
+                    b.HasIndex("IdWorker");
 
                     b.ToTable("Orders");
                 });
@@ -135,11 +132,9 @@ namespace ShopAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdProduct")
-                        .IsUnique();
+                    b.HasIndex("IdProduct");
 
-                    b.HasIndex("IdStorage")
-                        .IsUnique();
+                    b.HasIndex("IdStorage");
 
                     b.ToTable("Purchases");
                 });
@@ -179,8 +174,7 @@ namespace ShopAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdPost")
-                        .IsUnique();
+                    b.HasIndex("IdPost");
 
                     b.ToTable("Workers");
                 });
@@ -188,20 +182,20 @@ namespace ShopAPI.Migrations
             modelBuilder.Entity("ShopAPI.Models.Order", b =>
                 {
                     b.HasOne("ShopAPI.Models.Customer", "Customer")
-                        .WithOne("Order")
-                        .HasForeignKey("ShopAPI.Models.Order", "IdCustomer")
+                        .WithMany("Orders")
+                        .HasForeignKey("IdCustomer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShopAPI.Models.Product", "Product")
-                        .WithOne("Order")
-                        .HasForeignKey("ShopAPI.Models.Order", "IdProduct")
+                        .WithMany("Orders")
+                        .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShopAPI.Models.Worker", "Worker")
-                        .WithOne("Order")
-                        .HasForeignKey("ShopAPI.Models.Order", "IdWorker")
+                        .WithMany("Orders")
+                        .HasForeignKey("IdWorker")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -215,14 +209,14 @@ namespace ShopAPI.Migrations
             modelBuilder.Entity("ShopAPI.Models.Purchase", b =>
                 {
                     b.HasOne("ShopAPI.Models.Product", "Product")
-                        .WithOne("Purchase")
-                        .HasForeignKey("ShopAPI.Models.Purchase", "IdProduct")
+                        .WithMany("Purchases")
+                        .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShopAPI.Models.Storage", "Storage")
-                        .WithOne("Purchase")
-                        .HasForeignKey("ShopAPI.Models.Purchase", "IdStorage")
+                        .WithMany("Purchases")
+                        .HasForeignKey("IdStorage")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -234,8 +228,8 @@ namespace ShopAPI.Migrations
             modelBuilder.Entity("ShopAPI.Models.Worker", b =>
                 {
                     b.HasOne("ShopAPI.Models.Post", "Post")
-                        .WithOne("Worker")
-                        .HasForeignKey("ShopAPI.Models.Worker", "IdPost")
+                        .WithMany("Workers")
+                        .HasForeignKey("IdPost")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -244,35 +238,29 @@ namespace ShopAPI.Migrations
 
             modelBuilder.Entity("ShopAPI.Models.Customer", b =>
                 {
-                    b.Navigation("Order")
-                        .IsRequired();
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Post", b =>
                 {
-                    b.Navigation("Worker")
-                        .IsRequired();
+                    b.Navigation("Workers");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Product", b =>
                 {
-                    b.Navigation("Order")
-                        .IsRequired();
+                    b.Navigation("Orders");
 
-                    b.Navigation("Purchase")
-                        .IsRequired();
+                    b.Navigation("Purchases");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Storage", b =>
                 {
-                    b.Navigation("Purchase")
-                        .IsRequired();
+                    b.Navigation("Purchases");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Worker", b =>
                 {
-                    b.Navigation("Order")
-                        .IsRequired();
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

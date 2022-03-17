@@ -9,10 +9,10 @@
         public int Count { get; set; }
         public int Amount { get; set; }
 
-        public Worker Worker { get; set; }
+        public Worker? Worker { get; set; }
 
-        public Customer Customer { get; set; }
+        public Customer? Customer { get; set; }
 
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }

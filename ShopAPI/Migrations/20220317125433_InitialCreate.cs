@@ -149,38 +149,32 @@ namespace ShopAPI.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_IdCustomer",
                 table: "Orders",
-                column: "IdCustomer",
-                unique: true);
+                column: "IdCustomer");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_IdProduct",
                 table: "Orders",
-                column: "IdProduct",
-                unique: true);
+                column: "IdProduct");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_IdWorker",
                 table: "Orders",
-                column: "IdWorker",
-                unique: true);
+                column: "IdWorker");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Purchases_IdProduct",
                 table: "Purchases",
-                column: "IdProduct",
-                unique: true);
+                column: "IdProduct");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Purchases_IdStorage",
                 table: "Purchases",
-                column: "IdStorage",
-                unique: true);
+                column: "IdStorage");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Workers_IdPost",
                 table: "Workers",
-                column: "IdPost",
-                unique: true);
+                column: "IdPost");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

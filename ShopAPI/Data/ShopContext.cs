@@ -11,8 +11,6 @@ namespace ShopAPI.Data
 
         }
 
-
-
         public DbSet<Customer> Customers { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<Post> Posts { get; set; } = null!;
@@ -23,35 +21,42 @@ namespace ShopAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Post>()
-                .HasOne<Worker>()
-                .WithOne(i => i.Post)
-                .HasForeignKey<Worker>(b => b.IdPost);
-
-            modelBuilder.Entity<Customer>()
-                .HasOne<Order>()
-                .WithOne(d => d.Customer)
-                .HasForeignKey<Order>(d => d.IdCustomer);
-
-            modelBuilder.Entity<Storage>()
-                .HasOne<Purchase>()
-                .WithOne(f => f.Storage)
-                .HasForeignKey<Purchase>(e => e.IdStorage);
-
-            modelBuilder.Entity<Product>()
-                .HasOne<Purchase>()
-                .WithOne(j => j.Product)
-                .HasForeignKey<Purchase>(h => h.IdProduct);
-
-            modelBuilder.Entity<Product>()
-                .HasOne<Order>()
-                .WithOne(j => j.Product)
-                .HasForeignKey<Order>(h => h.IdProduct);
-
             modelBuilder.Entity<Worker>()
-                .HasOne<Order>()
-                .WithOne(m => m.Worker)
-                .HasForeignKey<Order>(l => l.IdWorker);
+                .HasOne(d => d.Post)
+                .WithMany(a => a.Workers)
+                .HasForeignKey(b => b.IdPost);
+
+
+            modelBuilder.Entity<Order>()
+                .HasOne(d => d.Worker)
+                .WithMany(m => m.Orders)
+                .HasForeignKey(l => l.IdWorker);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(d => d.Customer)
+                .WithMany(m => m.Orders)
+                .HasForeignKey(l => l.IdCustomer);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(d => d.Product)
+                .WithMany(m => m.Orders)
+                .HasForeignKey(l => l.IdProduct);
+
+
+
+            modelBuilder.Entity<Purchase>()
+                .HasOne(d => d.Storage)
+                .WithMany(f => f.Purchases)
+                .HasForeignKey(e => e.IdStorage);
+
+            modelBuilder.Entity<Purchase>()
+                .HasOne(d => d.Product)
+                .WithMany(f => f.Purchases)
+                .HasForeignKey(e => e.IdProduct);
+
+
+
+
         }
     }
     
