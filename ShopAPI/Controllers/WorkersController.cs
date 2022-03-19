@@ -79,6 +79,15 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Worker>> PostWorker(Worker worker)
         {
+            var post = await _context.Posts.FindAsync(worker.IdPost);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            worker.Post = post;
+
             _context.Workers.Add(worker);
             await _context.SaveChangesAsync();
 

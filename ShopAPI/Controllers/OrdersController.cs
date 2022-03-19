@@ -79,6 +79,33 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
+            var worker = await _context.Workers.FindAsync(order.IdWorker);
+
+            if (worker == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers.FindAsync(order.IdCustomer);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products.FindAsync(order.IdProduct);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            order.Worker = worker;
+            order.Customer = customer;
+            order.Product = product;
+
+            order.Amount = (int)(order.Count * product.Price);
+
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 

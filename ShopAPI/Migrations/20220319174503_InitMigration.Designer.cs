@@ -12,8 +12,8 @@ using ShopAPI.Data;
 namespace ShopAPI.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20220317125433_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220319174503_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,19 +184,19 @@ namespace ShopAPI.Migrations
             modelBuilder.Entity("ShopAPI.Models.Order", b =>
                 {
                     b.HasOne("ShopAPI.Models.Customer", "Customer")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("IdCustomer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShopAPI.Models.Product", "Product")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShopAPI.Models.Worker", "Worker")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("IdWorker")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -211,13 +211,13 @@ namespace ShopAPI.Migrations
             modelBuilder.Entity("ShopAPI.Models.Purchase", b =>
                 {
                     b.HasOne("ShopAPI.Models.Product", "Product")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShopAPI.Models.Storage", "Storage")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("IdStorage")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -230,39 +230,12 @@ namespace ShopAPI.Migrations
             modelBuilder.Entity("ShopAPI.Models.Worker", b =>
                 {
                     b.HasOne("ShopAPI.Models.Post", "Post")
-                        .WithMany("Workers")
+                        .WithMany()
                         .HasForeignKey("IdPost")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
-                });
-
-            modelBuilder.Entity("ShopAPI.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("ShopAPI.Models.Post", b =>
-                {
-                    b.Navigation("Workers");
-                });
-
-            modelBuilder.Entity("ShopAPI.Models.Product", b =>
-                {
-                    b.Navigation("Orders");
-
-                    b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("ShopAPI.Models.Storage", b =>
-                {
-                    b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("ShopAPI.Models.Worker", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

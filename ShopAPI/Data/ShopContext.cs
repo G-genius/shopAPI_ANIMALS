@@ -23,35 +23,35 @@ namespace ShopAPI.Data
         {
             modelBuilder.Entity<Worker>()
                 .HasOne(d => d.Post)
-                .WithMany(a => a.Workers)
+                .WithMany()
                 .HasForeignKey(b => b.IdPost);
 
 
             modelBuilder.Entity<Order>()
                 .HasOne(d => d.Worker)
-                .WithMany(m => m.Orders)
+                .WithMany()
                 .HasForeignKey(l => l.IdWorker);
 
             modelBuilder.Entity<Order>()
                 .HasOne(d => d.Customer)
-                .WithMany(m => m.Orders)
+                .WithMany()
                 .HasForeignKey(l => l.IdCustomer);
 
             modelBuilder.Entity<Order>()
                 .HasOne(d => d.Product)
-                .WithMany(m => m.Orders)
+                .WithMany()
                 .HasForeignKey(l => l.IdProduct);
 
 
 
             modelBuilder.Entity<Purchase>()
                 .HasOne(d => d.Storage)
-                .WithMany(f => f.Purchases)
+                .WithMany()
                 .HasForeignKey(e => e.IdStorage);
 
             modelBuilder.Entity<Purchase>()
                 .HasOne(d => d.Product)
-                .WithMany(f => f.Purchases)
+                .WithMany()
                 .HasForeignKey(e => e.IdProduct);
 
 
