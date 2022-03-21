@@ -12,8 +12,8 @@ using ShopAPI.Data;
 namespace ShopAPI.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20220319174503_InitMigration")]
-    partial class InitMigration
+    [Migration("20220321131338_initMigration")]
+    partial class initMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace ShopAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ShopAPI.Models.Customer", b =>
+            modelBuilder.Entity("ShopAPI.Models.Basket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,18 +32,58 @@ namespace ShopAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("FIO")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserPhone")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("Baskets");
                 });
 
-            modelBuilder.Entity("ShopAPI.Models.Order", b =>
+            modelBuilder.Entity("ShopAPI.Models.Buy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BasketId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("IdProduct");
+
+                    b.ToTable("Buys");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.BuyForShop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,24 +97,22 @@ namespace ShopAPI.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdCustomer")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdProduct")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdWorker")
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurchaseId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCustomer");
-
                     b.HasIndex("IdProduct");
 
-                    b.HasIndex("IdWorker");
+                    b.HasIndex("PurchaseId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("BuyForShops");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Post", b =>
@@ -101,11 +139,11 @@ namespace ShopAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Price")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -123,25 +161,17 @@ namespace ShopAPI.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdStorage")
+                    b.Property<int>("IdWorker")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdProduct");
-
-                    b.HasIndex("IdStorage");
+                    b.HasIndex("IdWorker");
 
                     b.ToTable("Purchases");
                 });
 
-            modelBuilder.Entity("ShopAPI.Models.Storage", b =>
+            modelBuilder.Entity("ShopAPI.Models.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,15 +179,18 @@ namespace ShopAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
+                    b.Property<string>("FIO")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Storages");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Worker", b =>
@@ -181,13 +214,22 @@ namespace ShopAPI.Migrations
                     b.ToTable("Workers");
                 });
 
-            modelBuilder.Entity("ShopAPI.Models.Order", b =>
+            modelBuilder.Entity("ShopAPI.Models.Basket", b =>
                 {
-                    b.HasOne("ShopAPI.Models.Customer", "Customer")
+                    b.HasOne("ShopAPI.Models.Users", "User")
                         .WithMany()
-                        .HasForeignKey("IdCustomer")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.Buy", b =>
+                {
+                    b.HasOne("ShopAPI.Models.Basket", null)
+                        .WithMany("Buys")
+                        .HasForeignKey("BasketId");
 
                     b.HasOne("ShopAPI.Models.Product", "Product")
                         .WithMany()
@@ -195,36 +237,33 @@ namespace ShopAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.BuyForShop", b =>
+                {
+                    b.HasOne("ShopAPI.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("IdProduct")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShopAPI.Models.Purchase", null)
+                        .WithMany("BuyForShops")
+                        .HasForeignKey("PurchaseId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.Purchase", b =>
+                {
                     b.HasOne("ShopAPI.Models.Worker", "Worker")
                         .WithMany()
                         .HasForeignKey("IdWorker")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-
-                    b.Navigation("Product");
-
                     b.Navigation("Worker");
-                });
-
-            modelBuilder.Entity("ShopAPI.Models.Purchase", b =>
-                {
-                    b.HasOne("ShopAPI.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("IdProduct")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ShopAPI.Models.Storage", "Storage")
-                        .WithMany()
-                        .HasForeignKey("IdStorage")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Storage");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Worker", b =>
@@ -236,6 +275,16 @@ namespace ShopAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.Basket", b =>
+                {
+                    b.Navigation("Buys");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.Purchase", b =>
+                {
+                    b.Navigation("BuyForShops");
                 });
 #pragma warning restore 612, 618
         }

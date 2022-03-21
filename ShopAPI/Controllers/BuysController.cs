@@ -13,47 +13,47 @@ namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoragesController : ControllerBase
+    public class BuysController : ControllerBase
     {
         private readonly ShopContext _context;
 
-        public StoragesController(ShopContext context)
+        public BuysController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Storages
+        // GET: api/Buys
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Storage>>> GetStorages()
+        public async Task<ActionResult<IEnumerable<Buy>>> GetBuys()
         {
-            return await _context.Storages.ToListAsync();
+            return await _context.Buys.ToListAsync();
         }
 
-        // GET: api/Storages/5
+        // GET: api/Buys/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Storage>> GetStorage(int id)
+        public async Task<ActionResult<Buy>> GetBuy(int id)
         {
-            var storage = await _context.Storages.FindAsync(id);
+            var buy = await _context.Buys.FindAsync(id);
 
-            if (storage == null)
+            if (buy == null)
             {
                 return NotFound();
             }
 
-            return storage;
+            return buy;
         }
 
-        // PUT: api/Storages/5
+        // PUT: api/Buys/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStorage(int id, Storage storage)
+        public async Task<IActionResult> PutBuy(int id, Buy buy)
         {
-            if (id != storage.Id)
+            if (id != buy.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(storage).State = EntityState.Modified;
+            _context.Entry(buy).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace ShopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StorageExists(id))
+                if (!BuyExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace ShopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Storages
+        // POST: api/Buys
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Storage>> PostStorage(Storage storage)
+        public async Task<ActionResult<Buy>> PostBuy(Buy buy)
         {
-            _context.Storages.Add(storage);
+            _context.Buys.Add(buy);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStorage", new { id = storage.Id }, storage);
+            return CreatedAtAction("GetBuy", new { id = buy.Id }, buy);
         }
 
-        // DELETE: api/Storages/5
+        // DELETE: api/Buys/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStorage(int id)
+        public async Task<IActionResult> DeleteBuy(int id)
         {
-            var storage = await _context.Storages.FindAsync(id);
-            if (storage == null)
+            var buy = await _context.Buys.FindAsync(id);
+            if (buy == null)
             {
                 return NotFound();
             }
 
-            _context.Storages.Remove(storage);
+            _context.Buys.Remove(buy);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool StorageExists(int id)
+        private bool BuyExists(int id)
         {
-            return _context.Storages.Any(e => e.Id == id);
+            return _context.Buys.Any(e => e.Id == id);
         }
     }
 }

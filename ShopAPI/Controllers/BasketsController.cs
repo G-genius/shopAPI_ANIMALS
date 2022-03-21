@@ -13,47 +13,47 @@ namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkersController : ControllerBase
+    public class BasketsController : ControllerBase
     {
         private readonly ShopContext _context;
 
-        public WorkersController(ShopContext context)
+        public BasketsController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Workers
+        // GET: api/Baskets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Worker>>> GetWorkers()
+        public async Task<ActionResult<IEnumerable<Basket>>> GetBaskets()
         {
-            return await _context.Workers.ToListAsync();
+            return await _context.Baskets.ToListAsync();
         }
 
-        // GET: api/Workers/5
+        // GET: api/Baskets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Worker>> GetWorker(int id)
+        public async Task<ActionResult<Basket>> GetBasket(int id)
         {
-            var worker = await _context.Workers.FindAsync(id);
+            var basket = await _context.Baskets.FindAsync(id);
 
-            if (worker == null)
+            if (basket == null)
             {
                 return NotFound();
             }
 
-            return worker;
+            return basket;
         }
 
-        // PUT: api/Workers/5
+        // PUT: api/Baskets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorker(int id, Worker worker)
+        public async Task<IActionResult> PutBasket(int id, Basket basket)
         {
-            if (id != worker.Id)
+            if (id != basket.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(worker).State = EntityState.Modified;
+            _context.Entry(basket).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace ShopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WorkerExists(id))
+                if (!BasketExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace ShopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Workers
+        // POST: api/Baskets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Worker>> PostWorker(Worker worker)
+        public async Task<ActionResult<Basket>> PostBasket(Basket basket)
         {
-            _context.Workers.Add(worker);
+            _context.Baskets.Add(basket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWorker", new { id = worker.Id }, worker);
+            return CreatedAtAction("GetBasket", new { id = basket.Id }, basket);
         }
 
-        // DELETE: api/Workers/5
+        // DELETE: api/Baskets/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWorker(int id)
+        public async Task<IActionResult> DeleteBasket(int id)
         {
-            var worker = await _context.Workers.FindAsync(id);
-            if (worker == null)
+            var basket = await _context.Baskets.FindAsync(id);
+            if (basket == null)
             {
                 return NotFound();
             }
 
-            _context.Workers.Remove(worker);
+            _context.Baskets.Remove(basket);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool WorkerExists(int id)
+        private bool BasketExists(int id)
         {
-            return _context.Workers.Any(e => e.Id == id);
+            return _context.Baskets.Any(e => e.Id == id);
         }
     }
 }

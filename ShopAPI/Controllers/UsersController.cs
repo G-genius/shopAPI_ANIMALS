@@ -13,47 +13,47 @@ namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkersController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly ShopContext _context;
 
-        public WorkersController(ShopContext context)
+        public UsersController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Workers
+        // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Worker>>> GetWorkers()
+        public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
-            return await _context.Workers.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Workers/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Worker>> GetWorker(int id)
+        public async Task<ActionResult<Users>> GetUsers(int id)
         {
-            var worker = await _context.Workers.FindAsync(id);
+            var users = await _context.Users.FindAsync(id);
 
-            if (worker == null)
+            if (users == null)
             {
                 return NotFound();
             }
 
-            return worker;
+            return users;
         }
 
-        // PUT: api/Workers/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorker(int id, Worker worker)
+        public async Task<IActionResult> PutUsers(int id, Users users)
         {
-            if (id != worker.Id)
+            if (id != users.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(worker).State = EntityState.Modified;
+            _context.Entry(users).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace ShopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WorkerExists(id))
+                if (!UsersExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace ShopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Workers
+        // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Worker>> PostWorker(Worker worker)
+        public async Task<ActionResult<Users>> PostUsers(Users users)
         {
-            _context.Workers.Add(worker);
+            _context.Users.Add(users);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWorker", new { id = worker.Id }, worker);
+            return CreatedAtAction("GetUsers", new { id = users.Id }, users);
         }
 
-        // DELETE: api/Workers/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWorker(int id)
+        public async Task<IActionResult> DeleteUsers(int id)
         {
-            var worker = await _context.Workers.FindAsync(id);
-            if (worker == null)
+            var users = await _context.Users.FindAsync(id);
+            if (users == null)
             {
                 return NotFound();
             }
 
-            _context.Workers.Remove(worker);
+            _context.Users.Remove(users);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool WorkerExists(int id)
+        private bool UsersExists(int id)
         {
-            return _context.Workers.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

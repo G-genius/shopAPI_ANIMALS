@@ -13,47 +13,47 @@ namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class BuyForShopsController : ControllerBase
     {
         private readonly ShopContext _context;
 
-        public CustomersController(ShopContext context)
+        public BuyForShopsController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/BuyForShops
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<BuyForShop>>> GetBuyForShops()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.BuyForShops.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/BuyForShops/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<BuyForShop>> GetBuyForShop(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var buyForShop = await _context.BuyForShops.FindAsync(id);
 
-            if (customer == null)
+            if (buyForShop == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return buyForShop;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/BuyForShops/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutBuyForShop(int id, BuyForShop buyForShop)
         {
-            if (id != customer.Id)
+            if (id != buyForShop.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(buyForShop).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace ShopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!BuyForShopExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace ShopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/BuyForShops
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<BuyForShop>> PostBuyForShop(BuyForShop buyForShop)
         {
-            _context.Customers.Add(customer);
+            _context.BuyForShops.Add(buyForShop);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return CreatedAtAction("GetBuyForShop", new { id = buyForShop.Id }, buyForShop);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/BuyForShops/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteBuyForShop(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var buyForShop = await _context.BuyForShops.FindAsync(id);
+            if (buyForShop == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.BuyForShops.Remove(buyForShop);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool BuyForShopExists(int id)
         {
-            return _context.Customers.Any(e => e.Id == id);
+            return _context.BuyForShops.Any(e => e.Id == id);
         }
     }
 }

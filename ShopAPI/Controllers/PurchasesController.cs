@@ -79,25 +79,6 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Purchase>> PostPurchase(Purchase purchase)
         {
-            var product = await _context.Products.FindAsync(purchase.IdProduct);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            var storage = await _context.Storages.FindAsync(purchase.IdStorage);
-
-            if (storage == null)
-            {
-                return NotFound();
-            }
-
-            purchase.Product = product;
-            purchase.Storage = storage;
-
-            purchase.Amount = (int)(purchase.Count*product.Price);
-
             _context.Purchases.Add(purchase);
             await _context.SaveChangesAsync();
 
