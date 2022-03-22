@@ -79,6 +79,44 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Basket>> PostBasket(Basket basket)
         {
+            var users = await _context.Users.FindAsync(basket.IdUser);
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            basket.User = users;
+            int sum = 0;
+
+            for (int i = 0; i < basket.Buys.Count; i++)
+            {
+                var buy = await _context.Buys.FindAsync(basket.Buys[i].Id);
+
+                if (buy == null)
+                {
+                    return NotFound();
+                }
+
+                var product = await _context.Products.FindAsync(buy.IdProduct);
+                
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                product.Count -= buy.Count;
+                if (product.Count < 0)
+                {
+                    return NotFound();
+                }
+                _context.Entry(product).State = EntityState.Modified;
+
+                sum += buy.Amount;
+                basket.Buys[i] = buy;
+            }
+
+            basket.Amount = sum;
+
             _context.Baskets.Add(basket);
             await _context.SaveChangesAsync();
 

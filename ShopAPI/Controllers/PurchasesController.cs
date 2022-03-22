@@ -79,6 +79,32 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Purchase>> PostPurchase(Purchase purchase)
         {
+            var worker = await _context.Workers.FindAsync(purchase.IdWorker);
+
+            if (worker == null)
+            {
+                return NotFound();
+            }
+
+            purchase.Worker = worker;
+
+            int sum = 0;
+
+            for (int i = 0; i < purchase.BuyForShops.Count; i++)
+            {
+                var buy = await _context.BuyForShops.FindAsync(purchase.BuyForShops[i].Id);
+
+                if (buy == null)
+                {
+                    return NotFound();
+                }
+
+                sum += buy.Amount;
+                purchase.BuyForShops[i] = buy;
+            }
+
+            purchase.Amount = sum;
+
             _context.Purchases.Add(purchase);
             await _context.SaveChangesAsync();
 

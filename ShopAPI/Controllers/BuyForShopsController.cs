@@ -79,6 +79,16 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<BuyForShop>> PostBuyForShop(BuyForShop buyForShop)
         {
+            var product = await _context.Products.FindAsync(buyForShop.IdProduct);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            buyForShop.Product = product;
+            buyForShop.Amount = buyForShop.Count * buyForShop.Price;
+
             _context.BuyForShops.Add(buyForShop);
             await _context.SaveChangesAsync();
 
