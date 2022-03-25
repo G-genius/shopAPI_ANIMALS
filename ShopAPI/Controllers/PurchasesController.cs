@@ -99,6 +99,15 @@ namespace ShopAPI.Controllers
                     return NotFound();
                 }
 
+                var product = await _context.Products.FindAsync(buy.IdProduct);
+
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                product.Count += buy.Count;
+                _context.Entry(product).State = EntityState.Modified;
+
                 sum += buy.Amount;
                 purchase.BuyForShops[i] = buy;
             }
