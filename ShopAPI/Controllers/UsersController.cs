@@ -17,6 +17,9 @@ namespace ShopAPI.Controllers
     {
         private readonly ShopContext _context;
 
+        public object Email { get; internal set; }
+        public object UserName { get; internal set; }
+
         public UsersController(ShopContext context)
         {
             _context = context;
