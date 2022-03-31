@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ShopContext>(opt => {
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMvcCore().AddRazorViewEngine();
 
 var app = builder.Build();
 
@@ -35,3 +36,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
