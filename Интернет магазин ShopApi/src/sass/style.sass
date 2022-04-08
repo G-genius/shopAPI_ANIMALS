@@ -1,0 +1,324 @@
+=btn_hover
+	&:hover
+		background-image: none
+		background-color: #D4A5A5
+		a
+			text-decoration: none
+			color: white
+	a
+		color: white
+
+	
+$main-color: #1eacc7
+$second-color: #ff5656
+
+*
+	font-family: 'Roboto', sans-serif
+
+header
+	position: relative
+	height: 50px
+	display: inline
+
+
+nav
+	position: fixed
+	width: 100%
+	height: 50px
+	background-color: #3DB2FF
+	z-index: 5
+	ul
+		a
+			cursor: pointer
+			color: #FFEDDA
+			&:hover
+				text-decoration: none
+				color: lightgrey
+	a
+		cursor: pointer
+		color: #FFEDDA
+		position: absolute
+		&:hover
+			text-decoration: none
+			color: lightgrey
+		&.a_log
+			right: -170px			
+			top: 12px
+		&.a_reg
+			top: 12px
+			right: -350px
+			
+.hamburger
+	display: none	
+
+.container
+	position: relative
+
+.menu
+	display: flex
+	justify-content: space-between
+	padding: 13px 50px
+	margin: 0
+	list-style-type: none
+	&_link
+		color: #FFEDDA
+		font-size: 14px
+		font-weight: 300
+		text-transform: uppercase
+		&:hover
+			text-decoration: none
+			color: lightgrey  
+ 
+
+.subheader
+	position: absolute
+	top: 50px
+	width: 100%
+	height: 90px
+	background-color: rgba(249, 180, 45, 1)
+	&_logo
+		position: absolute
+		img
+			height: 80px
+			width: 80px
+			margin-top: 6px
+			&.log
+				margin-left: -69px
+				cursor: pointer
+
+
+	&_official
+		margin-top: 6px
+		color: white
+		font-size: 27px
+		font-weight: 700
+		font-style: italic
+		text-align: center
+		text-shadow: black 0 0 2px
+
+	&_call
+		color: #ffffff
+		font-size: 12px
+		font-weight: 300
+		margin-top: 19px
+		text-align: right
+	&_phone
+		display: block
+		margin-top: 8px
+		color: #ffffff
+		font-size: 22px
+		font-weight: 400
+		text-transform: uppercase
+		line-height: 12px
+	&_btn
+		margin-top: 19px
+		width: 172px
+		height: 46px
+		box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12)
+		border: none
+		border-radius: 4px
+		background-image: linear-gradient(to top, $main-color 0%, #A6D0E4 100%)
+		text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.21)
+		color: #ffffff
+		font-size: 14px
+		font-weight: 400
+		text-transform: uppercase
+		cursor: pointer
+		+btn_hover
+
+.promo
+	min-height: 400px
+	padding: 90px 0 0 0
+	&_header
+		padding: 90px 0 0 0
+		color: $main-color
+		font-weight: 700
+		text-transform: uppercase
+		font-size: 60px
+		line-height: 60px
+		margin: 0
+		text-align: center
+	&_subheader
+		color: #ffffff
+		font-weight: 700
+		text-transform: uppercase
+		font-size: 36px
+		line-height: 36px
+		margin: 0
+		margin-top: 22px
+		text-align: center
+/*	&_akcia
+		padding: 70px 0 0 0
+		color: #ffffff
+		font-weight: 700
+		text-transform: uppercase
+		font-size: 36px
+		line-height: 36px
+		margin: 0
+		margin-top: 22px
+		text-align: center
+	&_btn
+		display: block
+		margin: 205px auto 0 auto
+		width: 259px
+		height: 63px
+		box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.12)
+		border: none
+		border-radius: 13px
+		background-image: linear-gradient(to top, $main-color 0%, green 100%)
+		text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.21)
+		color: #ffffff
+		font-size: 18px
+		font-weight: 400
+		text-transform: uppercase
+		+btn_hover
+
+.asortiment
+	position: relative
+	max-width: 2200px
+	/*background: url('../img/bg/Dog_paw_seamless_pattern.jpg') center (center / cover) no-repeat*/
+	&_zag
+		font-style: italic
+		font-size: 40px
+		padding: 20px 0 0 30px
+		text-shadow: black 0 0 0.8px	
+	&_reasons
+		position: relative
+		display: flex
+		&_tovar
+			width: 1300px
+			a
+				text-decoration: none
+			h2
+			font-style: italic
+			padding-left: 30px
+			&_vigoda
+				display: flex
+				margin-bottom: 30px 
+				&_1
+					display: flex
+					margin-bottom: 30px
+					h6
+						margin-left: -45px
+						a
+							color: #3DB2FF
+							&:hover
+								color: $second-color
+								text-decoration: none
+					img
+						width: 150px
+						height: 150px
+						margin-left: 40px
+						border-radius: 50px
+						border: 10px solid
+						color: orange
+						&:hover
+							color: #3DB2FF
+							text-decoration: none
+					button
+						width: 100px
+						height: 35px
+						border-radius: 4px
+						background-color: #FFB830
+						margin-left: 100px
+					a
+						display: block
+						text-align: center
+						padding: 0 40px 0 40px
+						color: grey
+						&:hover
+							color: #3DB2FF
+							text-decoration: none		
+
+				img
+					width: 350px
+					height: 350px
+					margin-left: 20px
+		&_animals
+			width: 370px
+			border-radius: 15px
+			background-color: #FFB830 
+			ul
+				list-style-type: none
+				strong
+					color: #3DB2FF
+					text-transform: uppercase
+					cursor: pointer
+				li
+					text-transform: lowercase
+				a
+					color: grey
+					&:hover
+						color: $second-color
+						text-decoration: none
+footer
+	.line
+		background-color: seagreen
+		.container
+			display: flex
+			.wrapper
+				display: flex 
+				justify-content: space-between
+				align-items: flex-start
+				padding-top: 0
+				margin-left: 745px
+			.wrapper > div 
+				width: 33%
+				&:nth-child(3)
+					display: flex 
+					justify-content: flex-end
+			.social
+				width: 160px
+				display: flex
+				justify-content: space-between
+				.item
+					display: flex 
+					justify-content: center
+					align-items: center
+					margin: 0 4px 
+					width: 32px
+					height: 32px
+					background-color: #d9d9e6
+					border-radius: 100%
+					text-decoration: none
+					i 
+						color: #17a139
+					&:hover
+						background-color: #3DB2FF
+
+		button
+			margin: 5px 0 10px 30px
+	div
+		padding-top: 5px
+	&_info
+		padding-top: 20px
+	ul
+		list-style-type: none
+		a
+			color: #3DB2FF 
+			&:hover
+				color: $second-color
+				text-decoration: none
+	.vvod_email
+		position: absolute
+		bottom: 70px
+		left: 320px
+		p
+			font-size: 13px
+		input
+			width: 400px
+		.subheader_btn
+			background-color: #17a139
+	.niz
+		display: flex
+		justify-content: center
+		align-items: center
+		a
+			margin-left: 30px
+			color: #3DB2FF 
+			&:hover
+				color: $second-color
+				text-decoration: none
+	p
+		text-align: center
+	
