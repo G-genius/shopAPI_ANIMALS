@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using ShopAPI.Models;
 using ShopAPI.Data;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
