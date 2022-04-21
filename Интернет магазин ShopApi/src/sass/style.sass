@@ -175,13 +175,17 @@ nav
 
 .asortiment
 	position: relative
-	max-width: 2200px
-	/*background: url('../img/bg/Dog_paw_seamless_pattern.jpg') center (center / cover) no-repeat*/
+	&_1
+		background: url("/src/img/bg/1584643617_9-p-foni-s-raznoobraznimi-zhivotnimi-21.jpg") center (center / cover) no-repeat
 	&_zag
 		font-style: italic
 		font-size: 40px
 		padding: 20px 0 0 30px
-		text-shadow: black 0 0 0.8px	
+		text-shadow: black 0 0 0.8px
+		&_ak
+			color: #f9b42d
+			h2
+				font-weight: 700	
 	&_reasons
 		position: relative
 		display: flex
@@ -195,6 +199,15 @@ nav
 			&_vigoda
 				display: flex
 				margin-bottom: 30px 
+
+				&_2 //Страница Акции
+					display: block
+					width: 1200px
+					.akcia
+						width: 280px
+						padding-bottom: 20px 
+						padding-right: 20px
+						
 				&_1
 					display: flex
 					margin-bottom: 30px
@@ -251,6 +264,81 @@ nav
 					&:hover
 						color: $second-color
 						text-decoration: none
+//info
+.reklama
+	position: relative
+	padding-bottom: 50px
+	h2
+		color: #ff6927
+		padding-top: 30px
+		margin: 0 auto
+		font-weight: bold
+	.lenta
+		display: flex
+		padding-top: 40px
+		.first
+			weight: 100px
+			padding-left: 70px
+			img
+				float: left
+			p
+				padding-left: 45px
+				color: #ff6927
+				font-weight: bold
+	.kot
+		padding-top: 30px
+		margin-left: 50px
+		img
+			width: 700px
+			float: left
+		h2
+			color: #ff6927
+			font-size: 50px
+			font-style: italic
+		p
+			margin-top: 20px
+	.chainStores
+		width: 1920px
+		h2
+			color: #17a139
+			text-align: center
+		hr
+			color: green
+			width: 200px
+			border: 2px solid
+		p
+			text-align: center
+		.mag
+			display: block
+			img
+				padding-top: 30px
+				padding-left: 30px
+				width: 360px
+		.numbers
+			display: flex
+			text-align: center
+			font-style: italic
+			font-weight: bold
+			&_1
+				margin: 0 auto
+				padding-left: 10px
+				h2
+					font-size: 50px
+				h3
+					padding-top: 30px
+					color: #17a139
+					text-align: center
+					font-size: 20px
+					font-weight: bold
+		.buttons
+			display: flex
+			justify-content: center
+			button
+				padding: 5px 4px 5px 0
+				border-radius: 4px
+				background-color: #FFB830
+				margin-left: 15px
+							
 footer
 	.line
 		background-color: seagreen
