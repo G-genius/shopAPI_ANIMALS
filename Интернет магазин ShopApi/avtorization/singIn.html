@@ -12,17 +12,18 @@
 </head>
 <body>
     <div class="form_auth_block animate">
-      <div class="form_auth_block_content">
-        <p class="form_auth_block_head_text">Регистрация</p>
-        <form class="form_auth_style" action="#" method="post">
-          <label>Введите Ваш e-mail</label>
-          <input type="email" name="auth_email" placeholder="Введите Ваш имейл" required >
-          <label>Введите Ваш пароль</label>
-          <input type="password" name="auth_pass" placeholder="Введите пароль" required >
-          <button class="form_auth_button"type="submit" name="form_auth_submit">Зарегестрироваться</button>
-        </form>
-        <a href="/src/sass/index.html"><button class="form_auth_button_1">Вернуться на главную</button>
-      </div>
+        <div class="form_auth_block_content">
+            <p class="form_auth_block_head_text">Регистрация</p>
+            <form class="form_auth_style" action="#" method="post">
+                <label>Введите Ваш e-mail</label>
+                <input type="email" name="auth_email" placeholder="Введите Ваш имейл" required>
+                <label>Введите Ваш пароль</label>
+                <input type="password" name="auth_pass" placeholder="Введите пароль" required>
+                <button onclick="registr()" class="form_auth_button" type="submit" name="form_auth_submit">Зарегестрироваться</button>
+            </form>
+            <a href="/src/sass/index.html"><button class="form_auth_button_1">Вернуться на главную</button>
+        </div>
     </div>
 </body>
+<script src="../src/js/registration.js"></script>
 </html>
