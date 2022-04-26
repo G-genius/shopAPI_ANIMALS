@@ -41,5 +41,9 @@ function CreateProduct(){
             <button onClick={createProduct}>Подвердить</button>
         </div>
     )
+
+
+    
+
 }
 export default CreateProduct
