@@ -32,16 +32,15 @@ function CreateProduct() {
                 password: password,
                 userName: userName,
             };
-            alert(users.id)
             axios.post(`https://localhost:7082/api/Users`, users)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
                 })
-
+            alert(userName + ", вы успешно зарегистрированы")
         }
         else {
-            alert("You not input all data")
+            alert("Пожлуйста, заполните все поля!")
         }
     }
 
@@ -51,7 +50,7 @@ function CreateProduct() {
             <input onChange={userNameOnChange} placeholder="Input username" />
             <input onChange={fioOnChange} placeholder="Input FIO" />
             <input onChange={emailOnChange} placeholder="Input email" />
-            <input onChange={passwordOnChange} placeholder="Input password" />
+            <input onChange={passwordOnChange} placeholder="Input password" type="password" />
             <button onClick={Registration}>Complete</button>
         </div>
     )
