@@ -19,13 +19,14 @@ function CreateProduct(){
                 id: 0,
                 name: name,
                 count: parseInt(count)
-              };
-          
-              axios.post(`https://localhost:7082/api/Products`, { product })
+            };
+            alert(product.id)
+            axios.post(`https://localhost:7082/api/Products`, product)
                 .then(res => {
                   console.log(res);
                   console.log(res.data);
                 })
+        
         }
         else{
             alert("You not input all data")
@@ -36,7 +37,7 @@ function CreateProduct(){
         <div>
             <p align="center">Создание продукта</p>
             <input onChange={nameOnChange} placeholder="Введите название"/>
-            <input onChange={countOnChange} type="number" placeholder="Введите количество"/>
+            <input onChange={countOnChange} type="number" placeholder="Введите количество" />
             <button onClick={createProduct}>Подвердить</button>
         </div>
     )
