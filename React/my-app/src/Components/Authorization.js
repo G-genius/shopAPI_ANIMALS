@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
+import "./style_reg.css"
 
-function Login() {
+function Login(isLogin) {
     // const [fio, setFio] = useState('')
     // const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -29,27 +30,36 @@ function Login() {
                 console.log((res.data))
                 console.log(res.data[0].userName);
                 console.log(userName)
-
+                let test = false;
                 for(let i = 0; i < res.data.length;i++){
                     if (res.data[i].userName == userName && res.data[i].password == password){
 
-                        alert("Вход выполнен")
+                        test = true;
+                        break;
                     }
-                    else {
-                        alert("Неправильный логин или пароль")
-                    }
+                    
+                }
+                if (test) {
+                    alert("Вход выполнен!")
+                    isLogin = true;
+                }
+                else {
+                    alert("Неправильный логин или пароль")
                 }
             })
     }
 
     return (
-        <div>
-            <p align="center">Authorization</p>
-            <input onChange={userNameOnChange} placeholder="Input username" />
-            {/*<input onChange={fioOnChange} placeholder="Input FIO" />*/}
-            {/*<input onChange={emailOnChange} placeholder="Input email" />*/}
-            <input onChange={passwordOnChange} placeholder="Input password" type="password" />
-            <button onClick={Authorization}>Complete</button>
+        <div className="Authorization">
+            <h3 id="Title" align="center">Вход в систему</h3>
+
+            <p>Ваше имя: <input onChange={userNameOnChange} placeholder="Input username" /></p>
+
+            <p>Пароль: <input onChange={passwordOnChange} placeholder="Input password" type="password" /></p>
+
+            <p> <input type="checkbox"  name="remember" /> Запомнить меня </p>
+            
+            <button onClick={Authorization}>Войти</button>
         </div>
     )
 }

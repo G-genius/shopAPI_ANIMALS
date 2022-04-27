@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
+import "./style_reg.css"
 
 function CreateProduct() {
     const [fio, setFio] = useState('')
@@ -38,6 +39,7 @@ function CreateProduct() {
                     console.log(res.data);
                 })
             alert(userName + ", вы успешно зарегистрированы")
+            window.location.reload();
         }
         else {
             alert("Пожлуйста, заполните все поля!")
@@ -45,12 +47,12 @@ function CreateProduct() {
     }
 
     return (
-        <div>
-            <p align="center">Registration</p>
-            <input onChange={userNameOnChange} placeholder="Input username" />
-            <input onChange={fioOnChange} placeholder="Input FIO" />
-            <input onChange={emailOnChange} placeholder="Input email" />
-            <input onChange={passwordOnChange} placeholder="Input password" type="password" />
+        <div className="Authorization">
+            <h3 id="Title" align="center">Registration</h3>
+            <p>Логин: <input onChange={userNameOnChange} placeholder="Input username" /></p>
+            <p>ФИО: <input onChange={fioOnChange} placeholder="Input FIO" /></p>
+            <p>Email: <input onChange={emailOnChange} placeholder="Input email" /></p>
+            <p>Пароль: <input onChange={passwordOnChange} placeholder="Input password" type="password" /></p>
             <button onClick={Registration}>Complete</button>
         </div>
     )
