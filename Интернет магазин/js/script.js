@@ -100,16 +100,16 @@ $(document).ready(function(){
             },
           messages: {
             name: {
-              required: "Введите ваше имя",
+              required: false,
               minlength: jQuery.validator.format("Минимальное имя {0} символа!")
             },
             phone: "Введите свой номер телефона",
             email: {
-              required: "Введите свой email",
+              required: false,
               email: "Your email address must be in the format of name@domain.com"
             },
             login: {
-              required: "Введите свой логин",
+              required: false,
               inlength: jQuery.validator.format("Минимальный логин {0} символов!")
             }
           }
