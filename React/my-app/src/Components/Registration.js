@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { render } from 'react-dom';
 import "./style_reg.css"
 
 function CreateProduct() {
@@ -43,11 +42,7 @@ function CreateProduct() {
             window.location.reload();
         }
         else {
-            alert("Пожалуйста, заполните все поля!")
-        }
-        this.onClick = this.onClick.bind(this);
-        this.useState = {
-            
+            alert("Пожлуйста, заполните все поля!")
         }
     }
 
@@ -61,6 +56,5 @@ function CreateProduct() {
             <button onClick={Registration}>Complete</button>
         </div>
     )
-    render()
 }
 export default CreateProduct

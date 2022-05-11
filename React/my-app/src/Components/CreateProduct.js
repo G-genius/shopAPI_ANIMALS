@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 
@@ -42,7 +41,7 @@ function CreateProduct(){
             <button onClick={createProduct}>Подвердить</button>
         </div>
     )
-    render()
+
 
     
 

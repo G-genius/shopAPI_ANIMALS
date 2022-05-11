@@ -1,13 +1,20 @@
-import { render } from '@testing-library/react';
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import "./style_reg.css"
 
-
-function Login({ funcIslog, funcIsReg }) {
+function Login(isLogin) {
+    // const [fio, setFio] = useState('')
+    // const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
 
+    // function fioOnChange(event) {
+    //     setFio(event.target.value)
+    // }
+    //
+    // function emailOnChange(event) {
+    //     setEmail(event.target.value)
+    // }
 
     function passwordOnChange(event) {
         setPassword(event.target.value)
@@ -34,16 +41,13 @@ function Login({ funcIslog, funcIsReg }) {
                 }
                 if (test) {
                     alert("Вход выполнен!")
-                    funcIslog(true)
-                    
+                    isLogin = true;
                 }
                 else {
                     alert("Неправильный логин или пароль")
                 }
             })
     }
-
-    
 
     return (
         <div className="Authorization">
@@ -58,6 +62,5 @@ function Login({ funcIslog, funcIsReg }) {
             <button onClick={Authorization}>Войти</button>
         </div>
     )
-    render()
 }
 export default Login
