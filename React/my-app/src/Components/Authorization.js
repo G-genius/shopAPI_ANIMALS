@@ -2,9 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import "./style_reg.css"
 
-function Login(isLogin) {
-    // const [fio, setFio] = useState('')
-    // const [email, setEmail] = useState('')
+function Login({ funcIslog, funcIsReg }) {
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
 
@@ -41,7 +39,7 @@ function Login(isLogin) {
                 }
                 if (test) {
                     alert("Вход выполнен!")
-                    isLogin = true;
+                    funcIslog(true)
                 }
                 else {
                     alert("Неправильный логин или пароль")

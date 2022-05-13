@@ -1,10 +1,8 @@
-import $ from "jquery"
-import 'react-maskedinput'
-import 'react-slick'
-
-$(document).ready(function () {
+$(document).ready(function(){
     $('.carousel__inner').slick({
         speed: 1200,
+        slidesToShow: 3,
+        slidesToScroll: 2,
         //adaptiveHeight: true,
         prevArrow: '<button type="button" class="slick-prev"><img src="../img/slaider/arrows/left-solid.jpg"></button>',
         nextArrow: '<button type="button" class="slick-next"><img src="../img/slaider/arrows/right-solid.jpg"></button>',
@@ -15,7 +13,7 @@ $(document).ready(function () {
         responsive: [
             {
               breakpoint: 992,
-              settings: {
+                settings: {
                 dots: true,
                 arrows: false,
               }
@@ -104,8 +102,8 @@ $(document).ready(function () {
             },
           messages: {
             name: {
-                  required: false,
-                  /*minlength: jQuery.validator.format("Минимальное имя {0} символа!")*/
+              required: false,
+              minlength: jQuery.validator.format("Минимальное имя {0} символа!")
             },
             phone: "Введите свой номер телефона",
             email: {
@@ -114,7 +112,7 @@ $(document).ready(function () {
             },
             login: {
               required: false,
-              /*inlength: jQuery.validator.format("Минимальный логин {0} символов!")*/
+              inlength: jQuery.validator.format("Минимальный логин {0} символов!")
             }
           }
         });

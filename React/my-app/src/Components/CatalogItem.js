@@ -1,32 +1,33 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import corm from "../img/asortiment_cats/korm/1.webp";
+import corm from "./1.webp";
 
-function CatalogItem() {
+function CatalogItem({name = "fff", description}) {
     return (
-        <div class="catalog-item">
-            <div class="catalog-item__wrapper">
-                <div class="catalog-item__content catalog-item__content_active">
-                    <img src={corm} alt="" class="catalog-item__img" />
-                    <div class="catalog-item__subtitle">Сухой корм для кошек ALL CATS</div>
-                    <div class="catalog-item__descr">Для кострированных кошек</div>
-                    <a href="" class="catalog-item__link">Подробнее</a>
+        <div className="catalog-item">
+            <div className="catalog-item__wrapper">
+                <div className="catalog-item__content catalog-item__content_active">
+                    <img src={corm} alt="" className="catalog-item__img" />
+                    <div className="catalog-item__subtitle">{name}</div>
+                    <div className="catalog-item__descr">Р”Р»СЏ РєРѕСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РєРѕС€РµРє</div>
+                    <a href="" className="catalog-item__link">РџРѕРґСЂРѕР±РЅРµРµ</a>
                 </div>
-                <ul class="catalog-item__list">
-                    <li>Райское наслаждение питомца</li>
-                    <li>Сытость в течении 6 часов</li>
-                    <li>Натуральный состав</li>
-                    <li>Срок годности до 3 недель</li>
-                    <a href="#" class="catalog-item__back">назад</a>
+                <ul className="catalog-item__list">
+                    <li>Р Р°Р№СЃРєРѕРµ РЅР°СЃР»Р°Р¶РґРµРЅРёРµ РїРёС‚РѕРјС†Р°</li>
+                    <li>РЎС‹С‚РѕСЃС‚СЊ РІ С‚РµС‡РµРЅРёРё 6 С‡Р°СЃРѕРІ</li>
+                    <li>РќР°С‚СѓСЂР°Р»СЊРЅС‹Р№ СЃРѕСЃС‚Р°РІ</li>
+                    <li>РЎСЂРѕРє РіРѕРґРЅРѕСЃС‚Рё РґРѕ 3 РЅРµРґРµР»СЊ</li>
+                    {description}
+                    <a href="#" className="catalog-item__back">РЅР°Р·Р°Рґ</a>
                 </ul>
             </div>
             <hr />
-            <div class="catalog-item__footer">
-                <div class="catalog-item__prices">
-                    <div class="catalog-item__old-price">4 750руб.</div>
-                    <div class="catalog-item__price">4500 руб.</div>
+            <div className="catalog-item__footer">
+                <div className="catalog-item__prices">
+                    <div className="catalog-item__old-price">4 750СЂСѓР±.</div>
+                    <div className="catalog-item__price">4500 СЂСѓР±.</div>
                 </div>
-                <button class="button button_mini">Купить</button>
+                <button className="button button_mini">РљСѓРїРёС‚СЊ</button>
             </div>
         </div>
     )
