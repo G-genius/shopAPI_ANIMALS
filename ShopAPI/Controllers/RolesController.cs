@@ -12,55 +12,55 @@ namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly ShopContext _context;
 
-        public UsersController(ShopContext context)
+        public RolesController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Roles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
-          if (_context.Users == null)
+          if (_context.Roles == null)
           {
               return NotFound();
           }
-            return await _context.Users.ToListAsync();
+            return await _context.Roles.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Roles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Role>> GetRole(int id)
         {
-          if (_context.Users == null)
+          if (_context.Roles == null)
           {
               return NotFound();
           }
-            var user = await _context.Users.FindAsync(id);
+            var role = await _context.Roles.FindAsync(id);
 
-            if (user == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return role;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Roles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutRole(int id, Role role)
         {
-            if (id != user.Id)
+            if (id != role.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(role).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace ShopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!RoleExists(id))
                 {
                     return NotFound();
                 }
@@ -81,53 +81,44 @@ namespace ShopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Roles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Role>> PostRole(Role role)
         {
-          if (_context.Users == null)
+          if (_context.Roles == null)
           {
-              return Problem("Entity set 'ShopContext.Users'  is null.");
+              return Problem("Entity set 'ShopContext.Roles'  is null.");
           }
-            var role = await _context.Roles.FindAsync(user.IdRole);
+            _context.Roles.Add(role);
+            await _context.SaveChangesAsync();
 
+            return CreatedAtAction("GetRole", new { id = role.Id }, role);
+        }
+
+        // DELETE: api/Roles/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRole(int id)
+        {
+            if (_context.Roles == null)
+            {
+                return NotFound();
+            }
+            var role = await _context.Roles.FindAsync(id);
             if (role == null)
             {
                 return NotFound();
             }
 
-            user.Role = role;
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
+            _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool RoleExists(int id)
         {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Roles?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

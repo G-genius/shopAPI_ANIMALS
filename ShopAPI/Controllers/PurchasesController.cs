@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +25,10 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Purchase>>> GetPurchases()
         {
+          if (_context.Purchases == null)
+          {
+              return NotFound();
+          }
             return await _context.Purchases.ToListAsync();
         }
 
@@ -33,6 +36,10 @@ namespace ShopAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Purchase>> GetPurchase(int id)
         {
+          if (_context.Purchases == null)
+          {
+              return NotFound();
+          }
             var purchase = await _context.Purchases.FindAsync(id);
 
             if (purchase == null)
@@ -79,14 +86,23 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Purchase>> PostPurchase(Purchase purchase)
         {
-            var worker = await _context.Workers.FindAsync(purchase.IdWorker);
-
-            if (worker == null)
+          if (_context.Purchases == null)
+          {
+              return Problem("Entity set 'ShopContext.Purchases'  is null.");
+          }
+            if (purchase.IdUser < 2)
             {
                 return NotFound();
             }
 
-            purchase.Worker = worker;
+            var users = await _context.Users.FindAsync(purchase.IdUser);
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            purchase.User = users;
 
             int sum = 0;
 
@@ -113,6 +129,7 @@ namespace ShopAPI.Controllers
             }
 
             purchase.Amount = sum;
+            purchase.IsFinished = false;
 
             _context.Purchases.Add(purchase);
             await _context.SaveChangesAsync();
@@ -124,6 +141,10 @@ namespace ShopAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePurchase(int id)
         {
+            if (_context.Purchases == null)
+            {
+                return NotFound();
+            }
             var purchase = await _context.Purchases.FindAsync(id);
             if (purchase == null)
             {
@@ -138,7 +159,7 @@ namespace ShopAPI.Controllers
 
         private bool PurchaseExists(int id)
         {
-            return _context.Purchases.Any(e => e.Id == id);
+            return (_context.Purchases?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

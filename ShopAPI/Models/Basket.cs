@@ -9,7 +9,9 @@
         public string? UserPhone { get; set; }
         public string? Address { get; set; }
 
-        public Users? User { get; set; }
+        public bool IsFinished { get; set; }
+
+        public User? User { get; set; }
 
         public List<Buy>? Buys { get; set; }
     }

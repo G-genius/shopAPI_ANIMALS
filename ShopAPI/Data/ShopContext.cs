@@ -11,21 +11,27 @@ namespace ShopAPI.Data
 
         }
 
-        public DbSet<Users> Users { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
         public DbSet<Buy> Buys { get; set; } = null!;
-        public DbSet<Post> Posts { get; set; } = null!;
+        public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<BuyForShop> BuyForShops { get; set; } = null!;
-        public DbSet<Worker> Workers { get; set; } = null!;
         public DbSet<Basket> Baskets { get; set; } = null!;
         public DbSet<Purchase> Purchases { get; set;} = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Worker>()
-                .HasOne(d => d.Post)
+            modelBuilder.Entity<Product>()
+                .HasOne(a => a.Category)
                 .WithMany()
-                .HasForeignKey(b => b.IdPost);
+                .HasForeignKey(a => a.IdCategory);
+
+
+            modelBuilder.Entity<User>()
+                .HasOne(a => a.Role)
+                .WithMany()
+                .HasForeignKey(s => s.IdRole);
 
 
             modelBuilder.Entity<Buy>()
@@ -38,15 +44,17 @@ namespace ShopAPI.Data
                 .WithMany()
                 .HasForeignKey(b => b.IdProduct);
 
+
             modelBuilder.Entity<Basket>()
                 .HasOne(d => d.User)
                 .WithMany()
                 .HasForeignKey(b => b.IdUser);
 
             modelBuilder.Entity<Purchase>()
-                .HasOne(d => d.Worker)
+                .HasOne(d => d.User)
                 .WithMany()
-                .HasForeignKey(b => b.IdWorker);
+                .HasForeignKey(b => b.IdUser);
+
 
             modelBuilder.Entity<Buy>()
                 .HasOne<Basket>()

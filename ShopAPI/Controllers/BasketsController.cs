@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +25,10 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Basket>>> GetBaskets()
         {
+          if (_context.Baskets == null)
+          {
+              return NotFound();
+          }
             return await _context.Baskets.ToListAsync();
         }
 
@@ -33,6 +36,10 @@ namespace ShopAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Basket>> GetBasket(int id)
         {
+          if (_context.Baskets == null)
+          {
+              return NotFound();
+          }
             var basket = await _context.Baskets.FindAsync(id);
 
             if (basket == null)
@@ -79,6 +86,11 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Basket>> PostBasket(Basket basket)
         {
+          if (_context.Baskets == null)
+          {
+              return Problem("Entity set 'ShopContext.Baskets'  is null.");
+          }
+
             var users = await _context.Users.FindAsync(basket.IdUser);
 
             if (users == null)
@@ -99,11 +111,12 @@ namespace ShopAPI.Controllers
                 }
 
                 var product = await _context.Products.FindAsync(buy.IdProduct);
-                
+
                 if (product == null)
                 {
                     return NotFound();
                 }
+
                 product.Count -= buy.Count;
                 if (product.Count < 0)
                 {
@@ -116,6 +129,7 @@ namespace ShopAPI.Controllers
             }
 
             basket.Amount = sum;
+            basket.IsFinished = false;
 
             _context.Baskets.Add(basket);
             await _context.SaveChangesAsync();
@@ -127,6 +141,10 @@ namespace ShopAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBasket(int id)
         {
+            if (_context.Baskets == null)
+            {
+                return NotFound();
+            }
             var basket = await _context.Baskets.FindAsync(id);
             if (basket == null)
             {
@@ -141,7 +159,7 @@ namespace ShopAPI.Controllers
 
         private bool BasketExists(int id)
         {
-            return _context.Baskets.Any(e => e.Id == id);
+            return (_context.Baskets?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
