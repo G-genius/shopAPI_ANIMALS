@@ -18,7 +18,7 @@ export default class Products extends React.Component {
             <div>
                 <div>
                     <h1>Продукты</h1>
-                    <p>{this.state.products.map(products => <p>{products.name}</p>)}</p>
+                    <p>{this.state.products.map(products => <div><p>{products.name}</p><img src={products.urlImage} width="200" /></div>)}</p>
                 </div>
             </div>
         )

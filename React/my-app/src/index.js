@@ -14,22 +14,20 @@ root.render(
         <App />
   </React.StrictMode>
 );
+
 kormTab.render(
     <React.StrictMode>
-        <CatalogItem name="Cool korm" />
+        <CatalogItem />
     </React.StrictMode>
 );
 defenseTab.render(
     <React.StrictMode>
-        <CatalogItem />
         <CatalogItem />
     </React.StrictMode>
 );
 
 foodTab.render(
     <React.StrictMode>
-        <CatalogItem />
-        <CatalogItem />
         <CatalogItem />
     </React.StrictMode>
 );

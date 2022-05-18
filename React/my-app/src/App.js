@@ -1,12 +1,12 @@
-import logo from './logo.svg';
 import Products from './Components/Products';
 import Users from './Components/Users';
 import CreateProduct from './Components/CreateProduct';
 import Registration from './Components/Registration';
 import Authorization from "./Components/Authorization";
 import CatalogItem from './Components/CatalogItem';
+import axios from 'axios';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 let signin = document.getElementById('signIn')
 let signup = document.getElementById('signUp')
@@ -61,7 +61,7 @@ function App() {
 
     return (
         <div className="App">
-            {/*<Products />*/}
+            <Products />
         </div>
     )
 
