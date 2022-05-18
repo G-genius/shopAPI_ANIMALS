@@ -17,18 +17,18 @@ root.render(
 
 kormTab.render(
     <React.StrictMode>
-        <CatalogItem />
+        <CatalogItem idCategory = "1" />
     </React.StrictMode>
 );
 defenseTab.render(
     <React.StrictMode>
-        <CatalogItem />
+        <CatalogItem idCategory = "2" />
     </React.StrictMode>
 );
 
 foodTab.render(
     <React.StrictMode>
-        <CatalogItem />
+        <CatalogItem idCategory = "3" />
     </React.StrictMode>
 );
 

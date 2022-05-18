@@ -90,7 +90,6 @@ namespace ShopAPI.Controllers
           {
               return Problem("Entity set 'ShopContext.Products'  is null.");
           }
-
             var category = await _context.Categories.FindAsync(product.IdCategory);
 
             if (category == null)

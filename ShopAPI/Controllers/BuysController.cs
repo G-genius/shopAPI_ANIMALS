@@ -87,6 +87,7 @@ namespace ShopAPI.Controllers
             }
 
             buy.Product = product;
+            buy.Price = product.Price;
             buy.Amount = buy.Count * buy.Price;
 
             _context.Buys.Add(buy);

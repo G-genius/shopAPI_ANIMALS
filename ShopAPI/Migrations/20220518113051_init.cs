@@ -44,7 +44,8 @@ namespace ShopAPI.Migrations
                     Count = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IdCategory = table.Column<int>(type: "int", nullable: false),
-                    UrlImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UrlImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
