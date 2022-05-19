@@ -7,6 +7,7 @@ import CatalogItem from './Components/CatalogItem';
 import axios from 'axios';
 
 import { useEffect, useState } from 'react';
+import Catalog from './Components/Catalog';
 
 let signin = document.getElementById('signIn')
 let signup = document.getElementById('signUp')
@@ -61,7 +62,8 @@ function App() {
 
     return (
         <div className="App">
-            <Products />
+            <Catalog />
+            
         </div>
     )
 
