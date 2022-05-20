@@ -1,22 +1,13 @@
 import Products from './Components/Products';
 import Users from './Components/Users';
 import CreateProduct from './Components/CreateProduct';
-import Registration from './Components/Registration';
-import Authorization from "./Components/Authorization";
-import CatalogItem from './Components/CatalogItem';
-import axios from 'axios';
+import { Routes, Route, Link } from 'react-router-dom';
+import Registration from './Pages/Registration';
+import Authorization from "./Pages/Authorization";
 
 import { useEffect, useState } from 'react';
 import Catalog from './Components/Catalog';
-
-let signin = document.getElementById('signIn')
-let signup = document.getElementById('signUp')
-let func = document.getElementById("func")
-
-async function Hide() {
-    signin.style.display = "none"
-    signup.style.display = "none"
-}
+import Home from './Pages/Home';
 
 function App() {
     const [isLogin, setIsLogin] = useState(false)
@@ -27,7 +18,6 @@ function App() {
         alert("Login changed")
     }
 
-    /*isLogin = Authorization()*/
     let view = []
 
     function viewFunc() {
@@ -39,32 +29,38 @@ function App() {
             </div>)
         }
     }
-    viewFunc()
-    function signInHide() {
-
-        if (signin.style.display == "none") {
-            signin.style.display = "block"
-        }
-        else if (signin.style.display == "block") {
-            signin.style.display = "none"
-        }
-    }
-    function signUpHide() {
-
-        if (signup.style.display == "none") {
-            signup.style.display = "block"
-        }
-        else if (signup.style.display == "block") {
-            signup.style.display = "none"
-        }
-    }
-    console.log(isLogin)
 
     return (
         <div className="App">
-            <Catalog />
-            
+            <section id="up" class="promo">
+                <div class="container">
+                    <header class="header">
+                        <a href="/" class="header__logo">
+                            <img src="/img/bg/header/logo.png" alt="logo"/>
+                        </a>
+                        <div class="header__official">
+                            Интернет-магазин
+                            <span>"ГАВС"</span>
+                        </div>
+                        <div class="header__contacts">
+                            <a href="tel:74999228974" class="header__phone">
+                                7 (499) 922-89-74
+                            </a>
+                            <button data-modal="consultation" class="button">Заказать звонок</button>
+                            <a class="button" data-modal="log" href="/Auth">Войти</a>
+                            <a href="/Reg"><button data-modal="reg" class="button">Зарегистрироваться</button></a>
+                        </div>
+                    </header>
+
+                </div>
+            </section>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/Reg" element={<Registration />} />
+                <Route path="/Auth" element={<Authorization />} />
+            </Routes>
         </div>
+
     )
 
 }

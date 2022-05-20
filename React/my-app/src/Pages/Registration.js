@@ -32,6 +32,7 @@ function CreateProduct() {
                 email: email,
                 password: password,
                 userName: userName,
+                idRole: 1
             };
             axios.post(`https://localhost:7082/api/Users`, users)
                 .then(res => {
@@ -39,7 +40,7 @@ function CreateProduct() {
                     console.log(res.data);
                 })
             alert(userName + ", вы успешно зарегистрированы")
-            window.location.reload();
+
         }
         else {
             alert("Пожлуйста, заполните все поля!")
@@ -47,13 +48,19 @@ function CreateProduct() {
     }
 
     return (
-        <div className="Authorization">
-            <h3 id="Title" align="center">Registration</h3>
-            <p>Логин: <input onChange={userNameOnChange} placeholder="Input username" /></p>
-            <p>ФИО: <input onChange={fioOnChange} placeholder="Input FIO" /></p>
-            <p>Email: <input onChange={emailOnChange} placeholder="Input email" /></p>
-            <p>Пароль: <input onChange={passwordOnChange} placeholder="Input password" type="password" /></p>
-            <button onClick={Registration}>Complete</button>
+        <div class="modal" id="reg">
+            <form class="modal feed-form feed-form_mt25" action="#">
+                <h2 class="modal__subtitle">Регистрация:</h2>
+                <p>Введите логин</p>
+                <input onChange={userNameOnChange} name="login" reguired type="text" placeholder="Логин" />
+                <p>Введите ФИО</p>
+                <input onChange={fioOnChange} name="name" required type="text" placeholder="Ваше ФИО" />
+                <p>Введите email</p>
+                <input onChange={emailOnChange} name="email" required type="email" placeholder="Ваш email" />
+                <p>Введите пароль</p>
+                <input onChange={passwordOnChange} name="password" required type="password" placeholder="Ваш пароль" />
+                <button onClick={Registration} class="button button__submit">Зарегистрироваться</button>
+            </form>
         </div>
     )
 }

@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style_reg.css"
 
 function Login({ funcIslog, funcIsReg }) {
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
+    const navigate = useNavigate()
 
     // function fioOnChange(event) {
     //     setFio(event.target.value)
@@ -39,25 +41,26 @@ function Login({ funcIslog, funcIsReg }) {
                 }
                 if (test) {
                     alert("Вход выполнен!")
-                    funcIslog(true)
+                    navigate('/')
                 }
                 else {
                     alert("Неправильный логин или пароль")
+                    
                 }
             })
     }
 
     return (
-        <div className="Authorization">
-            <h3 id="Title" align="center">Вход в систему</h3>
-
-            <p>Ваше имя: <input onChange={userNameOnChange} placeholder="Input username" /></p>
-
-            <p>Пароль: <input onChange={passwordOnChange} placeholder="Input password" type="password" /></p>
-
-            <p> <input type="checkbox"  name="remember" /> Запомнить меня </p>
-            
-            <button onClick={Authorization}>Войти</button>
+        <div class="modal" id="log">
+            <div class="modal__close">&times;</div>
+            <form class="modal feed-form feed-form_mt25" action="#">
+                <h2 class="modal__subtitle">Войти</h2>
+                <p>Введите логин</p>
+                <input onChange={userNameOnChange} name="login" required type="text" placeholder="Ваш Логин" />
+                <p>Введите пароль</p>
+                <input onChange={passwordOnChange} name="password" required type="password" placeholder="Ваш пароль" />
+                <button onClick={Authorization} class="button button__submit">Войти</button>
+            </form>
         </div>
     )
 }
