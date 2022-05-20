@@ -5,6 +5,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Registration from './Pages/Registration';
 import Authorization from "./Pages/Authorization";
 
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import Catalog from './Components/Catalog';
 import Home from './Pages/Home';
@@ -12,6 +13,15 @@ import Home from './Pages/Home';
 function App() {
     const [isLogin, setIsLogin] = useState(false)
     const [isReg, setIsReg] = useState(false)
+    const navigate = useNavigate()
+
+    function onClickAuth() {
+        navigate('/Auth')
+    }
+
+    function onClickReg() {
+        navigate('/Reg')
+    }
 
     function changeIsLogin(res) {
         setIsLogin(res)
@@ -43,12 +53,12 @@ function App() {
                             <span>"ГАВС"</span>
                         </div>
                         <div class="header__contacts">
-                            <a href="tel:74999228974" class="header__phone">
-                                7 (499) 922-89-74
-                            </a>
-                            <button data-modal="consultation" class="button">Заказать звонок</button>
-                            <a class="button" data-modal="log" href="/Auth">Войти</a>
-                            <a href="/Reg"><button data-modal="reg" class="button">Зарегистрироваться</button></a>
+                            {/*<a href="tel:74999228974" class="header__phone">*/}
+                            {/*    7 (499) 922-89-74*/}
+                            {/*</a>*/}
+                            {/*<button data-modal="consultation" class="button">Заказать звонок</button>*/}
+                            <button class="button" data-modal="log" onClick={onClickAuth}>Войти</button>
+                            <button data-modal="reg" class="button" onClick={onClickReg}>Зарегистрироваться</button>
                         </div>
                     </header>
 

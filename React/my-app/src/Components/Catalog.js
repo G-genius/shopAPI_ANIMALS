@@ -37,7 +37,8 @@ function Catalog() {
 
             for (let i = 0; i < categories.length; i++) {
                 let category = categories[i]
-                view.push(<li className="catalog__tab" onClick={() => { updateViewDetails(i + 1) }}><div>{category.name}</div></li>)
+                if (idCategory == i + 1) view.push(<li className="catalog__tab catalog__tab_active" onClick={() => { updateViewDetails(i + 1) }}><div>{category.name}</div></li>)
+                else view.push(<li className="catalog__tab" onClick={() => { updateViewDetails(i + 1) }}><div>{category.name}</div></li>)
             }
             
         }
