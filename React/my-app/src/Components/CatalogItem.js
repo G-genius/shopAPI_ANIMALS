@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
+import { Routes, Route, Link } from 'react-router-dom';
+
 
 function CatalogItem({ idCategory, objectProduct }) {
     return (
@@ -9,7 +11,6 @@ function CatalogItem({ idCategory, objectProduct }) {
                     <img src={objectProduct.urlImage} alt="" className="catalog-item__img" />
                     <div className="catalog-item__subtitle">{objectProduct.name}</div>
                     <div className="catalog-item__descr">{objectProduct.description}</div>
-                    <a href="" className="catalog-item__link">Подробнее</a>
                 </div>
                 <ul className="catalog-item__list">
                     <li>Райское наслаждение питомца</li>
@@ -25,7 +26,7 @@ function CatalogItem({ idCategory, objectProduct }) {
                     {/*<div className="catalog-item__old-price">4 750руб.</div>*/}
                     <div className="catalog-item__price">{objectProduct.price} руб.</div>
                 </div>
-                <button className="button button_mini">Купить</button>
+                <a href="/product" className="catalog-item__link">Подробнее</a>
             </div>
         </div>
         
