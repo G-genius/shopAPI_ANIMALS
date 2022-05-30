@@ -3,7 +3,7 @@ function Footer() {
         <div>
             <footer class="footer">
                 <div class="footer__info">
-                    <address class="footer_addr">Калуга, Калужский техникум электронных приборов</address>
+                    <address class="footer_addr">РљР°Р»СѓРіР°, РљР°Р»СѓР¶СЃРєРёР№ С‚РµС…РЅРёРєСѓРј СЌР»РµРєС‚СЂРѕРЅРЅС‹С… РїСЂРёР±РѕСЂРѕРІ</address>
                     <a class="footer__phone" href="tel: 84842737101">8(484) 273-71-01</a>
                     <div class="footer__social">
                         <a href="" class="footer__social-item"><img src="/icons/footer/1.svg" alt="facebook" /></a>

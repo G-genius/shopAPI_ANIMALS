@@ -13,28 +13,28 @@ function Header() {
     }
     return (
         <div>
-            <section id="up" class="promo">
+            <div id="up" class="promo">
                 <div class="container">
                     <header class="header">
                         <a href="/" class="header__logo">
                             <img src="/img/bg/header/logo.png" alt="logo" />
                         </a>
                         <div class="header__official">
-                            Интернет-магазин
-                            <span>"ГАВС"</span>
+                            РРЅС‚РµСЂРЅРµС‚-РјР°РіР°Р·РёРЅ
+                            <span>"Р“РђР’РЎ"</span>
                         </div>
                         <div class="header__contacts">
                             {/*<a href="tel:74999228974" class="header__phone">*/}
                             {/*    7 (499) 922-89-74*/}
                             {/*</a>*/}
-                            {/*<button data-modal="consultation" class="button">Заказать звонок</button>*/}
-                            <button class="button" data-modal="log" onClick={onClickAuth}>Войти</button>
-                            <button data-modal="reg" class="button" onClick={onClickReg}>Зарегистрироваться</button>
+                            {/*<button data-modal="consultation" class="button">Р—Р°РєР°Р·Р°С‚СЊ Р·РІРѕРЅРѕРє</button>*/}
+                            <button class="button" data-modal="log" onClick={onClickAuth}>Р’РѕР№С‚Рё</button>
+                            <button data-modal="reg" class="button" onClick={onClickReg}>Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ</button>
                         </div>
                     </header>
 
                 </div>
-            </section>
+            </div>
         </div>
     )
 }

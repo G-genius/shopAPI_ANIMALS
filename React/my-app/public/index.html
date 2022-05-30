@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/slick.css">
     <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
     <title>React App</title>
 </head>
 <body>
@@ -20,162 +22,20 @@
 
     <div id="root"></div>
 
-    <section class="carousel">
-        <div class="container">
-            <div class="carousel__inner">
-                <div>
-                    <img src="/img/asortiment_cats/defence/3.webp" alt="">
-                </div>
-                <div>
-                    <img src="/img/asortiment_cats/defence/3.webp" alt="">
-                </div>
-                <div>
-                    <img src="/img/asortiment_cats/defence/3.webp" alt="">
-                </div>
-                <div>
-                    <img src="/img/asortiment_cats/defence/3.webp" alt="">
-                </div>
-                <div>
-                    <img src="/img/asortiment_cats/defence/3.webp" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-
-    <section class="consultation">
-        <div class="container">
-            <h2 class="title title_left">
-                Получите бесплатную консультацию<br> по подбору товара для определенного животного
-            </h2>
-            <div class="consultation__descr">
-                Просто заполните форму заявки<br> и мы перезвоним вам в течении 10 минут
-            </div>
-            <form id="consultation-form" class="feed-form" action="#">
-                <input name="name" required type="text" placeholder="Ваше имя">
-                <input name="phone" required placeholder="Ваш телефон">
-                <input name="email" required type="email" placeholder="Ваш email">
-                <button class="button button__submit">Заказать консультацию</button>
-            </form>
-        </div>
-    </section>
-
-    <section class="advantages">
-        <div class="container">
-            <h2 class="title">НАШИ ПРЕИМУЩЕСТВА</h2>
-            <div class="advantages__wrapper">
-                <div class="advantages__item">
-                    <img src="/icons/advantages/2.webp" alt="cup" class="advantages__icon">
-                    <div class="advantages__subtitle">
-                        МАГАЗИНЫ В ГОРОДЕ
-                    </div>
-                    <div class="advantages__descr">
-                        Удобная карта покажет адреса и режим работы всех магазинов в вашем городе. Специальные значки помогут выбрать магазины с необходимыми товарами и услугами.
-                    </div>
-                </div>
-                <div class="advantages__item">
-                    <img src="/icons/advantages/3.webp" alt="heart" class="advantages__icon">
-                    <div class="advantages__subtitle">
-                        ПОМОЩЬ СПЕЦИАЛИСТА
-                    </div>
-                    <div class="advantages__descr">
-                        Ищите ответы на самые популярные вопросы в нашей энциклопедии статей. Задавайте вопросы профессионалам, получайте консультации по кормлению и содержанию питомца.
-                    </div>
-                </div>
-                <div class="advantages__item">
-                    <img src="/icons/advantages/4.webp" alt="shoe" class="advantages__icon">
-                    <div class="advantages__subtitle">
-                        БЫСТРЫЙ ЗАКАЗ
-                    </div>
-                    <div class="advantages__descr">
-                        Оформляйте заказ где и когда вам удобно. Больше не нужно тратить время на прохождение всех этапов в корзине. Повторить заказ стало еще проще с сервисом Подписка на доставку!
-                    </div>
-                </div>
-                <div class="advantages__item">
-                    <img src="/icons/advantages/7.webp" alt="shoe" class="advantages__icon">
-                    <div class="advantages__subtitle">
-                        УДОБНОЕ МОБИЛЬНОЕ ПРИЛОЖЕНИЕ
-                    </div>
-                    <div class="advantages__descr">
-                        Зоомагазин в вашем кармане! Теперь пользователи iOS и Android могут делать заказы для питомцев в любом месте не отрываясь от повседневных дел. Как скачать приложение?
-                    </div>
-                </div>
-                <div class="advantages__item">
-                    <img src="/icons/advantages/5.webp" alt="shoe" class="advantages__icon">
-                    <div class="advantages__subtitle">
-                        САМОВЫВОЗ
-                    </div>
-                    <div class="advantages__descr">
-                        Выбирайте товары на сайте или в приложении и забирайте в удобное для вас время в любом из магазинов «ГАВС».Уже через 30 минут собранный и упакованный заказ будет ждать вас в магазине.
-                    </div>
-                </div>
-                <div class="advantages__item">
-                    <img src="/icons/advantages/6.webp" alt="shoe" class="advantages__icon">
-                    <div class="advantages__subtitle">
-                        Мы гордимся тем, что делаем!
-                    </div>
-                    <div class="advantages__descr">
-                        Наша работа помогает сделать этот мир лучше, потому что домашние питомцы приносят радостные эмоции и ощущение полноты жизни. Выберите свой зоомагазин ГАВС и получайте удовольствие от покупок и общения с питомцем. Мы всегда рады видеть Вас!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="feed">
-        <div class="container">
-            <h2 class="title">отзывы клиентов</h2>
-            <div class="feed__item">
-                <img src="/img/user/1.jpg" alt="Виталя Лобанов" class="feed__img">
-                <div class="feed__text">
-                    <div class="feed__subtitle">Виталя Лобанов</div>
-                    <div class="feed__count">2 заказа</div>
-                    <div class="feed__descr">
-                        Обратился к ребятам из ГАВС - подобрали товар, который подошёл именно под моего питомца и финансовые возможности.
-                        Через некоторое время решил купить ошейник - не раздумывая обратился туда же.
-                        <br><br>
-                        Новые товары - новое впечатление!
-                        <br><br>
-                        Спасибо, ГАВС!
-                    </div>
-                </div>
-            </div>
-            <div class="feed__item">
-                <img src="/img/user/2.jpg" alt="Андрей Шершнев" class="feed__img">
-                <div class="feed__text">
-                    <div class="feed__subtitle">Андрей Шершнев</div>
-                    <div class="feed__count">3 заказа</div>
-                    <div class="feed__descr">
-                        Хороший магазин с добрым и отзывчивым персоналом каких мало. Позвонил проконсультироваться и узнать насчет цены. Ребята помогли и подобрали товар под нужды моего животного.
-                        Лучший магазин товаров для животных!
-                        <br><br>
-                        Персонал оставил после себя хорошее первое впечатление! Спасибо!!!
-                    </div>
-                </div>
-            </div>
-            <div class="feed__item">
-                <img src="/img/user/3.jpg" alt="Егор Капустин" class="feed__img">
-                <div class="feed__text">
-                    <div class="feed__subtitle">Егор Капустин</div>
-                    <div class="feed__count">5 заказов</div>
-                    <div class="feed__descr">
-                        Долго искал 1 товар по разным магазинам и только тут мне смогли помочь. Хороший персонал, с которым всегда можно договариться и низкие цены!
-                        <br><br>
-                        Позвонил, ребята поинтересовались моими целями и подобрали очень интересный вариант со скидкой! Теперь покупаю все самое необходимое для животного только там!
-                        <br><br>
-                        Спасибо!!!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2315.8848574382096!2d36.28692241744385!3d54.517892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4134b962a5e0927b%3A0x77fa38e436e96e3d!2z0JPQkdCf0J7QoyDQmtCeICLQmtCw0LvRg9C20YHQutC40Lkg0YLQtdGF0L3QuNC60YPQvCDRjdC70LXQutGC0YDQvtC90L3Ri9GFINC_0YDQuNCx0L7RgNC-0LIi!5e0!3m2!1sru!2sru!4v1652178606367!5m2!1sru!2sru" width="100%" height="630" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
     
 
-    <div class="overlay">
+
+
+
+
+
+
+
+
+
+
+
+    <!--<div class="overlay">
         <div class="modal" id="consultation">
             <div class="modal__close">&times;</div>
             <div class="modal__subtitle">Просто заполните форму заявки</div>
@@ -203,8 +63,8 @@
             <div class="modal__subtitle">Спасибо за вашу заявку!</div>
             <div class="modal__descr">Наш менеджер свяжется с вам в ближайшее время!</div>
         </div>
-        
-    </div>
+
+    </div>-->
 
     <a href="#up" class="pageup">
         <img src="/icons/scrollup.svg" alt="">
