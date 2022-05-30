@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./style_reg.css"
 
 function Login({ funcIslog, funcIsReg }) {
+    const [users, setUsers] = useState([])
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
     const navigate = useNavigate()
@@ -16,6 +17,14 @@ function Login({ funcIslog, funcIsReg }) {
     //     setEmail(event.target.value)
     // }
 
+    useEffect(() => {
+        axios.get(`https://localhost:7082/api/Users`)
+            .then(res => {
+                console.log((res.data));
+                setUsers(res.data)
+            })
+    }, [])
+
     function passwordOnChange(event) {
         setPassword(event.target.value)
     }
@@ -23,31 +32,22 @@ function Login({ funcIslog, funcIsReg }) {
     function userNameOnChange(event) {
         setUserName(event.target.value)
     }
-
     async function Authorization() {
-        axios.get(`https://localhost:7082/api/Users`)
-            .then(res => {
-                console.log((res.data))
-                console.log(res.data[0].userName);
-                console.log(userName)
-                let test = false;
-                for(let i = 0; i < res.data.length;i++){
-                    if (res.data[i].userName == userName && res.data[i].password == password){
+        
+        let test = false
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].userName == userName && users[i].password == password) {
+                test = true;
+                break;
+            }
 
-                        test = true;
-                        break;
-                    }
-                    
-                }
-                if (test) {
-                    alert("Вход выполнен!")
-                    navigate('/')
-                }
-                else {
-                    alert("Неправильный логин или пароль")
-                    
-                }
-            })
+        }
+        if (test) {
+            navigate("/")
+        }
+        else {
+            alert("Неправильный логин или пароль")
+        }
     }
 
     return (

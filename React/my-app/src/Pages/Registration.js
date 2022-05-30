@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import "./style_reg.css"
+import { useNavigate } from "react-router-dom";
 
 function CreateProduct() {
+    const navigate = useNavigate()
     const [fio, setFio] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -40,6 +42,7 @@ function CreateProduct() {
                     console.log(res.data);
                 })
             alert(userName + ", вы успешно зарегистрированы")
+            navigate("/Auth")
 
         }
         else {

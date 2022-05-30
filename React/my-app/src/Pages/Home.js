@@ -8,11 +8,11 @@ import Slider from "../Components/Slider";
 function Home() {
     return (
         <div>
-            <Slider />
             <Catalog />
             <Consultation />
             <Advantages />
             <Feedback />
+            <Slider />
             <Map/>
         </div>
         )

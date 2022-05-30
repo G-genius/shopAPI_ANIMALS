@@ -66,8 +66,7 @@ function Catalog() {
 
     return (<section class="catalog">
         <div class="container">
-            < h2 className="title" id="title" > Каталог Товаров для животных</h2 >
-            <h2 className="title title_2">Товары для кошек</h2>
+            < h2 className="title" id="title" > Каталог Товаров</h2 >
             <ul className="catalog__tabs">
                 {view}
             </ul>
