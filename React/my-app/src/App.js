@@ -9,22 +9,30 @@ import { useEffect, useState } from 'react';
 import Home from './Pages/Home';
 import "./css/style.min.css"
 import NotFoundPage from './Pages/NotFoundPage';
+import Basket from './Pages/Basket';
 
 function App() {
     const [isLogin, setIsLogin] = useState(false)
-    
-    function changeIsLogin(res) {
+    const [user, setUser] = useState([])
+
+    function changeIsLogin(res, user) {
         setIsLogin(res)
+        setUser(user)
         alert("Login changed")
     }
-
+    useEffect(() => {
+        console.log(user.userName)
+    }, [isLogin])
+    if (!user) return null;
     return (
         <div className="App">
-            <Header />
+            <Header isLogin={isLogin} userName={user.userName}/>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Reg" element={<Registration />} />
-                <Route path="/Auth" element={<Authorization />} />s
+                <Route path="/Basket" element={<Basket />} />
+                <Route path="/Basket/:id" element={<Basket />} />
+                <Route path="/Auth" element={<Authorization funcIslog={changeIsLogin} />} />
                 <Route path="/product/:id" element={<InfoProduct />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

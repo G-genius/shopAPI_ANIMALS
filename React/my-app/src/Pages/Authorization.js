@@ -17,6 +17,7 @@ function Login({ funcIslog, funcIsReg }) {
     //     setEmail(event.target.value)
     // }
 
+
     useEffect(() => {
         axios.get(`https://localhost:7082/api/Users`)
             .then(res => {
@@ -32,17 +33,24 @@ function Login({ funcIslog, funcIsReg }) {
     function userNameOnChange(event) {
         setUserName(event.target.value)
     }
+
+    
+
     async function Authorization() {
         
         let test = false
+        let user = null;
         for (let i = 0; i < users.length; i++) {
-            if (users[i].userName == userName && users[i].password == password) {
+            user = users[i]
+            if (user.userName == userName && user.password == password) {
                 test = true;
                 break;
             }
 
         }
         if (test) {
+            funcIslog(true, user)
+            console.log(user)
             navigate("/")
         }
         else {

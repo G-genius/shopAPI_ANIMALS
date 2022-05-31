@@ -3,10 +3,12 @@ import axios from 'axios';
 import React, { createElement, useEffect, useState } from "react";
 import "./productInfo.css"
 import Slider from "../Components/Slider";
+import { useNavigate } from "react-router-dom";
 
 function InfoProduct() {
     const { id } = useParams()
     const [product, setProduct] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const url = "https://localhost:7082/api/Products/" + id
@@ -17,6 +19,9 @@ function InfoProduct() {
             })
     }, [])
     if (!product) return null;
+    function addToBasket() {
+        navigate("/Basket")
+    }
     return (
         <div>
             <div className="productInfo">
@@ -25,11 +30,10 @@ function InfoProduct() {
                     <p><img src={product.urlImage} className="productImg" /></p>
                 </div>
                 <div className="productText">
-                    <p className="prodcutName">О товаре</p>
                     <p className="productDesc">Описание: {product.description}</p>
                     <p className="productCount">В наличии: {product.count} шт</p>
                     <p className="productPrice">Цена: {product.price} руб</p>
-                    <button class="button button__submit">Добавить в корзину</button>
+                    <button class="button button__submit" onClick={addToBasket}>Добавить в корзину</button>
                 </div>
 
             </div>

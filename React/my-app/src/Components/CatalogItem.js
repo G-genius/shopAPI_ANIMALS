@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-
+import { Routes, Route, Link } from 'react-router-dom';
 
 
 function CatalogItem({ idCategory, objectProduct }) {
@@ -26,7 +26,7 @@ function CatalogItem({ idCategory, objectProduct }) {
                     {/*<div className="catalog-item__old-price">4 750руб.</div>*/}
                     <div className="catalog-item__price">{objectProduct.price} руб.</div>
                 </div>
-                <a href={ name} className="catalog-item__link">Подробнее</a>
+                <Link to={name} className="catalog-item__link">Подробнее</Link>
             </div>
         </div>
         
