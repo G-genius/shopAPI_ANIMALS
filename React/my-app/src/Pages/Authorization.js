@@ -51,15 +51,15 @@ function Login({ funcIslog, funcIsReg }) {
     }
 
     return (
-        <div class="modal" id="log">
-            <div class="modal__close">&times;</div>
-            <form class="modal feed-form feed-form_mt25" action="#">
-                <h2 class="modal__subtitle">Войти</h2>
+        <div className="modal" id="log">
+            <div className="modal__close">&times;</div>
+            <form className="modal feed-form feed-form_mt25" action="#">
+                <h2 className="modal__subtitle">Войти</h2>
                 <p>Введите логин</p>
                 <input onChange={userNameOnChange} name="login" required type="text" placeholder="Ваш Логин" />
                 <p>Введите пароль</p>
                 <input onChange={passwordOnChange} name="password" required type="password" placeholder="Ваш пароль" />
-                <button onClick={Authorization} class="button button__submit">Войти</button>
+                <button onClick={Authorization} className="button button__submit">Войти</button>
             </form>
         </div>
     )

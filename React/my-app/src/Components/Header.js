@@ -24,12 +24,9 @@ function Header() {
                             <span>"ГАВС"</span>
                         </div>
                         <div class="header__contacts">
-                            {/*<a href="tel:74999228974" class="header__phone">*/}
-                            {/*    7 (499) 922-89-74*/}
-                            {/*</a>*/}
-                            {/*<button data-modal="consultation" class="button">Заказать звонок</button>*/}
                             <button class="button" data-modal="log" onClick={onClickAuth}>Войти</button>
                             <button data-modal="reg" class="button" onClick={onClickReg}>Зарегистрироваться</button>
+                            <p>Здравствуйте: </p>
                         </div>
                     </header>
 

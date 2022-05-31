@@ -51,9 +51,9 @@ function CreateProduct() {
     }
 
     return (
-        <div class="modal" id="reg">
-            <form class="modal feed-form feed-form_mt25" action="#">
-                <h2 class="modal__subtitle">Регистрация:</h2>
+        <div className="modal" id="reg">
+            <form className="modal feed-form feed-form_mt25" action="#">
+                <h2 className="modal__subtitle">Регистрация:</h2>
                 <p>Введите логин</p>
                 <input onChange={userNameOnChange} name="login" reguired type="text" placeholder="Логин" />
                 <p>Введите ФИО</p>
@@ -62,7 +62,7 @@ function CreateProduct() {
                 <input onChange={emailOnChange} name="email" required type="email" placeholder="Ваш email" />
                 <p>Введите пароль</p>
                 <input onChange={passwordOnChange} name="password" required type="password" placeholder="Ваш пароль" />
-                <button onClick={Registration} class="button button__submit">Зарегистрироваться</button>
+                <button onClick={Registration} className="button button__submit">Зарегистрироваться</button>
             </form>
         </div>
     )

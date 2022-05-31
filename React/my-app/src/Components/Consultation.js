@@ -1,19 +1,19 @@
 function Consultation() {
     return (
         <div>
-            <section class="consultation">
-                <div class="container">
-                    <h2 class="title title_left">
+            <section className="consultation">
+                <div className="container">
+                    <h2 className="title title_left">
                         Получите бесплатную консультацию<br /> по подбору товара для определенного животного
                     </h2>
-                    <div class="consultation__descr">
+                    <div className="consultation__descr">
                         Просто заполните форму заявки<br /> и мы перезвоним вам в течении 10 минут
                     </div>
-                    <form id="consultation-form" class="feed-form" action="#">
+                    <form id="consultation-form" className="feed-form" action="#">
                         <input name="name" required type="text" placeholder="Ваше имя" />
                         <input name="phone" required placeholder="Ваш телефон" />
                         <input name="email" required type="email" placeholder="Ваш email" />
-                        <button class="button button__submit">Заказать консультацию</button>
+                        <button className="button button__submit">Заказать консультацию</button>
                     </form>
                 </div>
             </section>

@@ -151,10 +151,12 @@ section {
     flex-direction: column;
     -webkit-box-align: end;
     -ms-flex-align: end;
-    align-items: flex-end
+    align-items: center;
+    padding-top: 20px;
 }
 
 .button {
+    cursor:pointer;
     background-color: #c70101;
     width: 150px;
     height: 30px;
@@ -169,6 +171,7 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 7px;
 }
 
     .button:hover {
@@ -183,8 +186,10 @@ section {
 }
 
 .button__submit {
-    width: 100%;
-    height: 55px
+    width: 90%;
+    height: 55px;
+    padding-top: 20px
+    
 }
 
 .button_mini {
@@ -455,8 +460,8 @@ p {
 }
 
 .catalog-item {
-    width: 300px;
-    min-height: 440px;
+    width: 250px;
+    max-height: 440px;
     border: 2px solid #e8e8e8;
     padding: 20px 20px 26px 20px;
     overflow: hidden;
@@ -508,13 +513,10 @@ p {
 }
 
 .catalog-item__footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center
 }
@@ -532,27 +534,27 @@ p {
     font-weight: 700
 }
 
-.catalog-item__wrapper {
+/*.catalog-item__wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     width: calc(200% + 40px)
-}
+}*/
 
-.catalog-item__content {
+/*.catalog-item__content {
     width: 50%;
     margin-right: 0px;
     -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
     -webkit-transition: 0.5s all;
-    transition: 0.5s all
-}
+    transition: 0.5s all*/
+/*}
 
 .catalog-item__content_active {
     -webkit-transform: translateX(0%);
     transform: translateX(0%);
     margin-right: 20px
-}
+}*/
 
 .catalog-item__list {
     position: relative;
@@ -660,15 +662,11 @@ p {
 }
 
 .footer__info {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    padding-top:100px;
     width: 100%;
+    margin:auto;
     height: 270px;
     background-color: blueviolet;
-    padding: 50px 68px 60px 68px
 }
 
 .footer address {

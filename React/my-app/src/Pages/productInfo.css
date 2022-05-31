@@ -1,0 +1,26 @@
+.productInfo{
+    display:flex;
+    border:ridge;
+    border-radius:5%;
+    max-width:900px;
+    margin:auto;
+    margin-bottom:100px
+}
+.productImg{
+    max-width:500px
+}
+.productText{
+    max-width:400px;
+    padding-top:100px;
+    padding-left:50px;
+    font-size:20px
+}
+.productName {
+    font-size:40px;
+    text-align: center;
+    padding-left:350px
+}
+.productOther {
+    font-size: 40px;
+    text-align: center;
+}

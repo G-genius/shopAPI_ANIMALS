@@ -3,8 +3,8 @@ import React, { createElement, useEffect, useState } from "react";
 import CatalogItem from './CatalogItem';
 
 function Catalog() {
-    const [categories, setCategory] = useState()
-    const [products, setProducts] = useState()
+    const [categories, setCategory] = useState([])
+    const [products, setProducts] = useState([])
     const [idCategory, setIdCategory] = useState(1)
 
     useEffect(() => {
@@ -64,9 +64,9 @@ function Catalog() {
 
     if (!categories && !products) return null;
 
-    return (<section class="catalog">
-        <div class="container">
-            < h2 className="title" id="title" > Каталог Товаров</h2 >
+    return (<section className="catalog">
+        <div className="container">
+            <h2 className="title"> Каталог Товаров</h2>
             <ul className="catalog__tabs">
                 {view}
             </ul>

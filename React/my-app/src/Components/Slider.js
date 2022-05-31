@@ -24,7 +24,7 @@ function Sliders() {
         ]
     };
 
-    const [products, setProducts] = useState()
+    const [products, setProducts] = useState([])
 
     useEffect(() => {
         axios.get(`https://localhost:7082/api/Products`)
