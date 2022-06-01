@@ -12,55 +12,55 @@ namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BasketsController : ControllerBase
+    public class FinalBuysController : ControllerBase
     {
         private readonly ShopContext _context;
 
-        public BasketsController(ShopContext context)
+        public FinalBuysController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Baskets
+        // GET: api/FinalBuys
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Basket>>> GetBaskets()
+        public async Task<ActionResult<IEnumerable<FinalBuy>>> GetFinalBuys()
         {
-          if (_context.Baskets == null)
+          if (_context.FinalBuys == null)
           {
               return NotFound();
           }
-            return await _context.Baskets.ToListAsync();
+            return await _context.FinalBuys.ToListAsync();
         }
 
-        // GET: api/Baskets/5
+        // GET: api/FinalBuys/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Basket>> GetBasket(int id)
+        public async Task<ActionResult<FinalBuy>> GetFinalBuy(int id)
         {
-          if (_context.Baskets == null)
+          if (_context.FinalBuys == null)
           {
               return NotFound();
           }
-            var basket = await _context.Baskets.FindAsync(id);
+            var finalBuy = await _context.FinalBuys.FindAsync(id);
 
-            if (basket == null)
+            if (finalBuy == null)
             {
                 return NotFound();
             }
 
-            return basket;
+            return finalBuy;
         }
 
-        // PUT: api/Baskets/5
+        // PUT: api/FinalBuys/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBasket(int id, Basket basket)
+        public async Task<IActionResult> PutFinalBuy(int id, FinalBuy finalBuy)
         {
-            if (id != basket.Id)
+            if (id != finalBuy.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(basket).State = EntityState.Modified;
+            _context.Entry(finalBuy).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace ShopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BasketExists(id))
+                if (!FinalBuyExists(id))
                 {
                     return NotFound();
                 }
@@ -81,29 +81,30 @@ namespace ShopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Baskets
+        // POST: api/FinalBuys
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Basket>> PostBasket(Basket basket)
+        public async Task<ActionResult<FinalBuy>> PostFinalBuy(FinalBuy finalBuy)
         {
-          if (_context.Baskets == null)
+          if (_context.FinalBuys == null)
           {
-              return Problem("Entity set 'ShopContext.Baskets'  is null.");
+              return Problem("Entity set 'ShopContext.FinalBuys'  is null.");
           }
 
-            var users = await _context.Users.FindAsync(basket.IdUser);
+            var users = await _context.Users.FindAsync(finalBuy.IdUser);
 
             if (users == null)
             {
                 return NotFound();
             }
 
-            basket.User = users;
-            int sum = 0;
+            finalBuy.User = users;
+            finalBuy.UserBasket = users.Basket;
+            float sum = 0;
 
-            for (int i = 0; i < basket.Buys.Count; i++)
+            for (int i = 0; i < finalBuy.UserBasket.Count; i++)
             {
-                var buy = await _context.Buys.FindAsync(basket.Buys[i].Id);
+                var buy = await _context.Buys.FindAsync(finalBuy.UserBasket[i]);
 
                 if (buy == null)
                 {
@@ -125,41 +126,40 @@ namespace ShopAPI.Controllers
                 _context.Entry(product).State = EntityState.Modified;
 
                 sum += buy.Amount;
-                basket.Buys[i] = buy;
+                finalBuy.UserBasket[i] = buy;
             }
 
-            basket.Amount = sum;
-            basket.IsFinished = false;
+            finalBuy.Amount = sum;
 
-            _context.Baskets.Add(basket);
+            _context.FinalBuys.Add(finalBuy);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBasket", new { id = basket.Id }, basket);
+            return CreatedAtAction("GetFinalBuy", new { id = finalBuy.Id }, finalBuy);
         }
 
-        // DELETE: api/Baskets/5
+        // DELETE: api/FinalBuys/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBasket(int id)
+        public async Task<IActionResult> DeleteFinalBuy(int id)
         {
-            if (_context.Baskets == null)
+            if (_context.FinalBuys == null)
             {
                 return NotFound();
             }
-            var basket = await _context.Baskets.FindAsync(id);
-            if (basket == null)
+            var finalBuy = await _context.FinalBuys.FindAsync(id);
+            if (finalBuy == null)
             {
                 return NotFound();
             }
 
-            _context.Baskets.Remove(basket);
+            _context.FinalBuys.Remove(finalBuy);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool BasketExists(int id)
+        private bool FinalBuyExists(int id)
         {
-            return (_context.Baskets?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.FinalBuys?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -86,6 +86,13 @@ namespace ShopAPI.Controllers
                 return NotFound();
             }
 
+            var user = await _context.Users.FindAsync(buy.IdUser);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             buy.Product = product;
             buy.Price = product.Price;
             buy.Amount = buy.Count * buy.Price;

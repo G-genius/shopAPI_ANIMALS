@@ -16,7 +16,7 @@ namespace ShopAPI.Data
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<BuyForShop> BuyForShops { get; set; } = null!;
-        public DbSet<Basket> Baskets { get; set; } = null!;
+        public DbSet<FinalBuy> FinalBuys { get; set; } = null!;
         public DbSet<Purchase> Purchases { get; set;} = null!;
         public DbSet<Category> Categories { get; set; } = null!;
 
@@ -27,12 +27,10 @@ namespace ShopAPI.Data
                 .WithMany()
                 .HasForeignKey(a => a.IdCategory);
 
-
             modelBuilder.Entity<User>()
                 .HasOne(a => a.Role)
                 .WithMany()
                 .HasForeignKey(s => s.IdRole);
-
 
             modelBuilder.Entity<Buy>()
                 .HasOne(d => d.Product)
@@ -44,8 +42,7 @@ namespace ShopAPI.Data
                 .WithMany()
                 .HasForeignKey(b => b.IdProduct);
 
-
-            modelBuilder.Entity<Basket>()
+            modelBuilder.Entity<FinalBuy>()
                 .HasOne(d => d.User)
                 .WithMany()
                 .HasForeignKey(b => b.IdUser);
@@ -57,8 +54,8 @@ namespace ShopAPI.Data
 
 
             modelBuilder.Entity<Buy>()
-                .HasOne<Basket>()
-                .WithMany(p => p.Buys);
+                .HasOne<User>()
+                .WithMany(p => p.Basket);
 
             modelBuilder.Entity<BuyForShop>()
                 .HasOne<Purchase>()

@@ -12,7 +12,7 @@
 
         public string? UrlImage { get; set; }
 
-        public int Price { get; set; }
+        public float Price { get; set; }
 
         public Category? Category { get; set; }
     }

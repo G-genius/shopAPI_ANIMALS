@@ -90,21 +90,20 @@ namespace ShopAPI.Controllers
           {
               return Problem("Entity set 'ShopContext.Purchases'  is null.");
           }
+            var user = await _context.Users.FindAsync(purchase.IdUser);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             if (purchase.IdUser < 2)
             {
                 return NotFound();
             }
+            purchase.User = user;
 
-            var users = await _context.Users.FindAsync(purchase.IdUser);
-
-            if (users == null)
-            {
-                return NotFound();
-            }
-
-            purchase.User = users;
-
-            int sum = 0;
+            float sum = 0;
 
             for (int i = 0; i < purchase.BuyForShops.Count; i++)
             {
@@ -112,7 +111,7 @@ namespace ShopAPI.Controllers
 
                 if (buy == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
 
                 var product = await _context.Products.FindAsync(buy.IdProduct);
@@ -129,7 +128,6 @@ namespace ShopAPI.Controllers
             }
 
             purchase.Amount = sum;
-            purchase.IsFinished = false;
 
             _context.Purchases.Add(purchase);
             await _context.SaveChangesAsync();

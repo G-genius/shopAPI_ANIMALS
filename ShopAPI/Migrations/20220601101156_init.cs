@@ -45,7 +45,7 @@ namespace ShopAPI.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IdCategory = table.Column<int>(type: "int", nullable: false),
                     UrlImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,22 +82,21 @@ namespace ShopAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Baskets",
+                name: "FinalBuys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUser = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<float>(type: "real", nullable: false),
                     UserPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsFinished = table.Column<bool>(type: "bit", nullable: false)
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Baskets", x => x.Id);
+                    table.PrimaryKey("PK_FinalBuys", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Baskets_Users_IdUser",
+                        name: "FK_FinalBuys_Users_IdUser",
                         column: x => x.IdUser,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -111,8 +110,7 @@ namespace ShopAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUser = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    IsFinished = table.Column<bool>(type: "bit", nullable: false)
+                    Amount = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,18 +130,20 @@ namespace ShopAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdProduct = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
+                    IdUser = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    BasketId = table.Column<int>(type: "int", nullable: true)
+                    Amount = table.Column<float>(type: "real", nullable: false),
+                    FinalBuyId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Buys", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Buys_Baskets_BasketId",
-                        column: x => x.BasketId,
-                        principalTable: "Baskets",
+                        name: "FK_Buys_FinalBuys_FinalBuyId",
+                        column: x => x.FinalBuyId,
+                        principalTable: "FinalBuys",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Buys_Products_IdProduct",
@@ -151,6 +151,11 @@ namespace ShopAPI.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Buys_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -160,9 +165,9 @@ namespace ShopAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdProduct = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<float>(type: "real", nullable: false),
                     PurchaseId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -182,11 +187,6 @@ namespace ShopAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Baskets_IdUser",
-                table: "Baskets",
-                column: "IdUser");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BuyForShops_IdProduct",
                 table: "BuyForShops",
                 column: "IdProduct");
@@ -197,14 +197,24 @@ namespace ShopAPI.Migrations
                 column: "PurchaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Buys_BasketId",
+                name: "IX_Buys_FinalBuyId",
                 table: "Buys",
-                column: "BasketId");
+                column: "FinalBuyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Buys_IdProduct",
                 table: "Buys",
                 column: "IdProduct");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Buys_UserId",
+                table: "Buys",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FinalBuys_IdUser",
+                table: "FinalBuys",
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_IdCategory",
@@ -234,7 +244,7 @@ namespace ShopAPI.Migrations
                 name: "Purchases");
 
             migrationBuilder.DropTable(
-                name: "Baskets");
+                name: "FinalBuys");
 
             migrationBuilder.DropTable(
                 name: "Products");

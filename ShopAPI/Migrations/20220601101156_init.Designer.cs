@@ -12,7 +12,7 @@ using ShopAPI.Data;
 namespace ShopAPI.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20220518113051_init")]
+    [Migration("20220601101156_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,36 +24,6 @@ namespace ShopAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ShopAPI.Models.Basket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Baskets");
-                });
-
             modelBuilder.Entity("ShopAPI.Models.Buy", b =>
                 {
                     b.Property<int>("Id")
@@ -62,26 +32,34 @@ namespace ShopAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BasketId")
-                        .HasColumnType("int");
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
 
                     b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinalBuyId")
                         .HasColumnType("int");
 
                     b.Property<int>("IdProduct")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BasketId");
+                    b.HasIndex("FinalBuyId");
 
                     b.HasIndex("IdProduct");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Buys");
                 });
@@ -94,8 +72,8 @@ namespace ShopAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
@@ -103,8 +81,8 @@ namespace ShopAPI.Migrations
                     b.Property<int>("IdProduct")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<int?>("PurchaseId")
                         .HasColumnType("int");
@@ -134,6 +112,33 @@ namespace ShopAPI.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("ShopAPI.Models.FinalBuy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("FinalBuys");
+                });
+
             modelBuilder.Entity("ShopAPI.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -154,8 +159,8 @@ namespace ShopAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<string>("UrlImage")
                         .HasColumnType("nvarchar(max)");
@@ -175,14 +180,11 @@ namespace ShopAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -237,28 +239,21 @@ namespace ShopAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ShopAPI.Models.Basket", b =>
-                {
-                    b.HasOne("ShopAPI.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ShopAPI.Models.Buy", b =>
                 {
-                    b.HasOne("ShopAPI.Models.Basket", null)
-                        .WithMany("Buys")
-                        .HasForeignKey("BasketId");
+                    b.HasOne("ShopAPI.Models.FinalBuy", null)
+                        .WithMany("UserBasket")
+                        .HasForeignKey("FinalBuyId");
 
                     b.HasOne("ShopAPI.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ShopAPI.Models.User", null)
+                        .WithMany("Basket")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Product");
                 });
@@ -276,6 +271,17 @@ namespace ShopAPI.Migrations
                         .HasForeignKey("PurchaseId");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.FinalBuy", b =>
+                {
+                    b.HasOne("ShopAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Product", b =>
@@ -311,14 +317,19 @@ namespace ShopAPI.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("ShopAPI.Models.Basket", b =>
+            modelBuilder.Entity("ShopAPI.Models.FinalBuy", b =>
                 {
-                    b.Navigation("Buys");
+                    b.Navigation("UserBasket");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.Purchase", b =>
                 {
                     b.Navigation("BuyForShops");
+                });
+
+            modelBuilder.Entity("ShopAPI.Models.User", b =>
+                {
+                    b.Navigation("Basket");
                 });
 #pragma warning restore 612, 618
         }
