@@ -99,17 +99,28 @@ namespace ShopAPI.Controllers
             }
 
             finalBuy.User = users;
-            finalBuy.UserBasket = users.Basket;
             float sum = 0;
 
             for (int i = 0; i < finalBuy.UserBasket.Count; i++)
             {
-                var buy = await _context.Buys.FindAsync(finalBuy.UserBasket[i]);
+                var buy = await _context.Buys.FindAsync(finalBuy.UserBasket[i].Id);
 
                 if (buy == null)
                 {
                     return NotFound();
                 }
+
+                if (buy.IdUser != users.Id)
+                {
+                    return BadRequest();
+                }
+
+                if (buy.IsFinished)
+                {
+                    return NotFound();
+                }
+
+                buy.IsFinished = true;
 
                 var product = await _context.Products.FindAsync(buy.IdProduct);
 
@@ -119,11 +130,14 @@ namespace ShopAPI.Controllers
                 }
 
                 product.Count -= buy.Count;
+
                 if (product.Count < 0)
                 {
                     return NotFound();
                 }
+
                 _context.Entry(product).State = EntityState.Modified;
+                _context.Entry(buy).State = EntityState.Modified;
 
                 sum += buy.Amount;
                 finalBuy.UserBasket[i] = buy;

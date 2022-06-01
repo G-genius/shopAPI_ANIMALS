@@ -98,7 +98,6 @@ namespace ShopAPI.Controllers
             }
 
             user.Role = role;
-            user.Basket = null;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();

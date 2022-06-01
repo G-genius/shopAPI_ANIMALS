@@ -94,12 +94,12 @@ namespace ShopAPI.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (purchase.IdUser < 2)
+            if (user.IdRole < 2)
             {
-                return NotFound();
+                return BadRequest();
             }
             purchase.User = user;
 

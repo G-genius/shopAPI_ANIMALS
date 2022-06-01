@@ -12,7 +12,7 @@ using ShopAPI.Data;
 namespace ShopAPI.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20220601101156_init")]
+    [Migration("20220601171652_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,11 +47,11 @@ namespace ShopAPI.Migrations
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsFinished")
+                        .HasColumnType("bit");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -59,7 +59,7 @@ namespace ShopAPI.Migrations
 
                     b.HasIndex("IdProduct");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Buys");
                 });
@@ -251,11 +251,15 @@ namespace ShopAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShopAPI.Models.User", null)
-                        .WithMany("Basket")
-                        .HasForeignKey("UserId");
+                    b.HasOne("ShopAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ShopAPI.Models.BuyForShop", b =>
@@ -325,11 +329,6 @@ namespace ShopAPI.Migrations
             modelBuilder.Entity("ShopAPI.Models.Purchase", b =>
                 {
                     b.Navigation("BuyForShops");
-                });
-
-            modelBuilder.Entity("ShopAPI.Models.User", b =>
-                {
-                    b.Navigation("Basket");
                 });
 #pragma warning restore 612, 618
         }

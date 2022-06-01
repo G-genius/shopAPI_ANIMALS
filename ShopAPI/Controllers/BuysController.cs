@@ -93,9 +93,11 @@ namespace ShopAPI.Controllers
                 return NotFound();
             }
 
+            buy.User = user;
             buy.Product = product;
             buy.Price = product.Price;
             buy.Amount = buy.Count * buy.Price;
+            buy.IsFinished = false;
 
             _context.Buys.Add(buy);
             await _context.SaveChangesAsync();

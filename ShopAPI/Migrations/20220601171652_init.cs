@@ -134,8 +134,8 @@ namespace ShopAPI.Migrations
                     Price = table.Column<float>(type: "real", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<float>(type: "real", nullable: false),
-                    FinalBuyId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    IsFinished = table.Column<bool>(type: "bit", nullable: false),
+                    FinalBuyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -152,10 +152,11 @@ namespace ShopAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Buys_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Buys_Users_IdUser",
+                        column: x => x.IdUser,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,9 +208,9 @@ namespace ShopAPI.Migrations
                 column: "IdProduct");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Buys_UserId",
+                name: "IX_Buys_IdUser",
                 table: "Buys",
-                column: "UserId");
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FinalBuys_IdUser",

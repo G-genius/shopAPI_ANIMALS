@@ -37,6 +37,11 @@ namespace ShopAPI.Data
                 .WithMany()
                 .HasForeignKey(b => b.IdProduct);
 
+            modelBuilder.Entity<Buy>()
+                .HasOne(d => d.User)
+                .WithMany()
+                .HasForeignKey(b => b.IdUser);
+
             modelBuilder.Entity<BuyForShop>()
                 .HasOne(d => d.Product)
                 .WithMany()
@@ -54,8 +59,8 @@ namespace ShopAPI.Data
 
 
             modelBuilder.Entity<Buy>()
-                .HasOne<User>()
-                .WithMany(p => p.Basket);
+                .HasOne<FinalBuy>()
+                .WithMany(p => p.UserBasket);
 
             modelBuilder.Entity<BuyForShop>()
                 .HasOne<Purchase>()
