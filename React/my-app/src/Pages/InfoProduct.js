@@ -5,10 +5,43 @@ import "./productInfo.css"
 import Slider from "../Components/Slider";
 import { useNavigate } from "react-router-dom";
 
-function InfoProduct() {
+function InfoProduct({ User }) {
     const { id } = useParams()
     const [product, setProduct] = useState()
     const navigate = useNavigate()
+    const [count, setCount] = useState(0)
+
+    async function createBuy() {
+        if (count && User && count < product.count) {
+            const buy = {
+                id: 0,
+                idProduct: product.id,
+                idUser: User.id,
+                price: 0,
+                count: parseInt(count),
+                amount: 0,
+                isFinished: false,
+                product: null,
+                user: null
+            };
+            axios.post(`https://localhost:7082/api/Buys`, buy)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    navigate("/Basket")
+                }).catch(function (error) {
+                    alert("Произосла ошибка >_<")
+                    return null
+                })
+            
+        }
+        else {
+            alert("You not input count")
+        }
+    }
+    function countOnChange(event) {
+        setCount(event.target.value)
+    }
 
     useEffect(() => {
         const url = "https://localhost:7082/api/Products/" + id
@@ -19,9 +52,6 @@ function InfoProduct() {
             })
     }, [])
     if (!product) return null;
-    function addToBasket() {
-        navigate("/Basket")
-    }
     return (
         <div>
             <div className="productInfo">
@@ -33,7 +63,8 @@ function InfoProduct() {
                     <p className="productDesc">Описание: {product.description}</p>
                     <p className="productCount">В наличии: {product.count} шт</p>
                     <p className="productPrice">Цена: {product.price} руб</p>
-                    <button class="button button__submit" onClick={addToBasket}>Добавить в корзину</button>
+                    <p>Количество: <input className="productAmount" onChange={countOnChange} type="number"></input></p>
+                    <button class="button button__submit" onClick={createBuy}>Добавить в корзину</button>
                 </div>
 
             </div>

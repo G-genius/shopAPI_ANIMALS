@@ -18,7 +18,6 @@ function App() {
     function changeIsLogin(res, user) {
         setIsLogin(res)
         setUser(user)
-        alert("Login changed")
     }
     useEffect(() => {
         console.log(user.userName)
@@ -30,10 +29,10 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Reg" element={<Registration />} />
-                <Route path="/Basket" element={<Basket />} />
+                <Route path="/Basket" element={<Basket User={user} />} />
                 <Route path="/Basket/:id" element={<Basket />} />
                 <Route path="/Auth" element={<Authorization funcIslog={changeIsLogin} />} />
-                <Route path="/product/:id" element={<InfoProduct />} />
+                <Route path="/product/:id" element={<InfoProduct User={user}/>} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer />
