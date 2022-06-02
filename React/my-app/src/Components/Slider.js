@@ -1,8 +1,11 @@
 import React, { createElement, useEffect, useState } from "react";
+import { useParams } from 'react-router-dom'
 import Slider from "react-slick";
 import axios from 'axios';
+import { useNavigate, Link } from "react-router-dom";
 
-function Sliders() {
+function Sliders({id}) {
+    const navigate = useNavigate()
     const settings = {
         //prevArrow: '<button type="button"><img src="../img/slaider/arrows/left-solid.jpg"></button>',
         //nextArrow: '<button type="button"><img src="../img/slaider/arrows/right-solid.jpg"></button>',
@@ -40,14 +43,14 @@ function Sliders() {
         viewDetails = []
         for (let i = 0; i < products.length; i++) {
             let product = products[i]
+            if (product.id == id) continue
             viewDetails.push(<div className="element">
-                <img src={product.urlImage} alt="" />
+                <img onClick={() => { navigate("/product/" + product.id) }} src={product.urlImage} alt="" />
             </div>)
         }
 
     }
     setViewDetails()
-
     if (!products) return null;
 
     return (

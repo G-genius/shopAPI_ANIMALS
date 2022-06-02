@@ -10,6 +10,7 @@ import Home from './Pages/Home';
 import "./css/style.min.css"
 import NotFoundPage from './Pages/NotFoundPage';
 import Basket from './Pages/Basket';
+import FinalTextPage from './Pages/FinalTextPage';
 
 function App() {
     const [isLogin, setIsLogin] = useState(false)
@@ -30,10 +31,10 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/Reg" element={<Registration />} />
                 <Route path="/Basket" element={<Basket User={user} />} />
-                <Route path="/Basket/:id" element={<Basket />} />
                 <Route path="/Auth" element={<Authorization funcIslog={changeIsLogin} />} />
                 <Route path="/product/:id" element={<InfoProduct User={user}/>} />
                 <Route path="*" element={<NotFoundPage />} />
+                <Route path="/FinalText" element={<FinalTextPage />} />
             </Routes>
             <Footer />
         </div>

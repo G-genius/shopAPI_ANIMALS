@@ -69,7 +69,7 @@ function InfoProduct({ User }) {
 
             </div>
             <h2 className="productOther">Похожие товары</h2>
-            <Slider />
+            <Slider id={id}/>
         </div>
         
     )

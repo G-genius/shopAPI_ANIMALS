@@ -1,0 +1,31 @@
+.productItemInfo{
+    display:flex;
+}
+.itogInfo {
+    position:relative;
+    border: outset;
+    margin-left: 100px;
+    margin-top: 70px;
+    border-radius: 10px;
+}
+
+.itogInfo p{
+    padding: 0;
+}
+
+.basketItem{
+    border:outset;
+    border-radius:10px;
+    display:flex;
+    margin:10px
+}
+.centerBlock{
+    max-width:200px
+}
+.basketButtons{
+    margin:0 auto;
+    max-width:50%;
+}
+.leftBlock img {
+    width: 200px
+}
