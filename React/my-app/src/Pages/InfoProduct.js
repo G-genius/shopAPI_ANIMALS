@@ -12,7 +12,7 @@ function InfoProduct({ User }) {
     const [count, setCount] = useState(0)
 
     async function createBuy() {
-        if (count && User && count < product.count) {
+        if (count && User && count < product.count && count > 0) {
             const buy = {
                 id: 0,
                 idProduct: product.id,
@@ -30,7 +30,9 @@ function InfoProduct({ User }) {
                     console.log(res.data);
                     navigate("/Basket")
                 }).catch(function (error) {
-                    alert("Произосла ошибка >_<")
+                    alert("Произошла ошибка >_<")
+                    alert(error.description)
+                    console.log(buy)
                     return null
                 })
             

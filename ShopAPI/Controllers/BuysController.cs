@@ -83,14 +83,19 @@ namespace ShopAPI.Controllers
 
             if (product == null)
             {
-                return NotFound();
+                return Problem("Продукт не найден");
             }
 
             var user = await _context.Users.FindAsync(buy.IdUser);
 
             if (user == null)
             {
-                return NotFound();
+                return Problem("Пользователь не найден");
+            }
+
+            if (buy.Count < 0 || buy.Count > product.Count)
+            {
+                return Problem("Неверно указано количество");
             }
 
             buy.User = user;

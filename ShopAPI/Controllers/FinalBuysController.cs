@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopAPI.Data;
 using ShopAPI.Models;
+using ShopAPI.Validation;
 
 namespace ShopAPI.Controllers
 {
@@ -15,10 +16,12 @@ namespace ShopAPI.Controllers
     public class FinalBuysController : ControllerBase
     {
         private readonly ShopContext _context;
+        private readonly FullBuyValidation _validation;
 
         public FinalBuysController(ShopContext context)
         {
             _context = context;
+            _validation = new FullBuyValidation();
         }
 
         // GET: api/FinalBuys
@@ -90,7 +93,12 @@ namespace ShopAPI.Controllers
           {
               return Problem("Entity set 'ShopContext.FinalBuys'  is null.");
           }
-
+            
+            if (!_validation.IsValid(finalBuy.UserPhone))
+            {
+                return Problem("Incorrect phone number");
+            }
+            
             var users = await _context.Users.FindAsync(finalBuy.IdUser);
 
             if (users == null)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopAPI.Data;
 using ShopAPI.Models;
+using Xunit;
 
 namespace ShopAPI.Controllers
 {

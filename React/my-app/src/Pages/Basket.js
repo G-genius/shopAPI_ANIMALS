@@ -81,7 +81,7 @@ function Basket({ User }) {
                 viewInfo.push(
                     <div className="itogInfo">
                         <p>Адрес: <input onChange={addressOnChange} /></p>
-                        <p>Телефон: <InputMask mask="+7 \999 999-99-99" maskChar=" " onChange={phoneOnChange} /></p>
+                        <p>Телефон: <InputMask mask="8 \999 999-99-99" maskChar=" " onChange={phoneOnChange} /></p>
                         <p>Итоговая цена: {finalprice} руб.</p>
                         <div className="basketButtons">
                             <button className="button" onClick={createFinalBuy}>Оформить заказ</button>
